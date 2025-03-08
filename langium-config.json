@@ -1,0 +1,15 @@
+{
+    "projectName": "Docml",
+    "languages": [{
+        "id": "docml",
+        "grammar": "src/language/docml.langium",
+        "fileExtensions": [".docml"],
+        "textMate": {
+            "out": "syntaxes/docml.tmLanguage.json"
+        },
+        "monarch": {
+            "out": "src/syntaxes/docml.monarch.ts"
+        }
+    }],
+    "out": "src/language/generated"
+}
