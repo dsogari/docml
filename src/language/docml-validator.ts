@@ -19,9 +19,11 @@ export function registerValidationChecks(services: DocmlServices) {
  */
 export class DocmlValidator {
   checkNodeNameDoesNotContainEmptyScopes(node: Node, accept: ValidationAcceptor): void {
-    const scopes = node.name.split(':').slice(1, -1);
-    if (scopes.includes('')) {
-      accept('warning', 'Scope name should not be empty.', { node, property: 'name' });
+    if (node.name) {
+      const scopes = node.name.split(':').slice(1, -1);
+      if (scopes.includes('')) {
+        accept('warning', 'Scope name should not be empty.', { node, property: 'name' });
+      }
     }
   }
 }

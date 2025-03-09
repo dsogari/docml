@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc -b tsconfig.src.json && bun run build:extension && bun run build:language",
     "build:extension": "bun build --minify --target=node --format=cjs --external=vscode --outfile=out/extension/main.cjs src/extension/main.ts",
-    "build:language": "bun build --minify --target=node --format=cjs --external=vscode --outfile=out/language/main.cjs src/language/main.ts",
+    "build:language": "bun build --minify --target=node --format=cjs --ignore-dce-annotations --outfile=out/language/main.cjs src/language/main.ts",
     "lint": "eslint src --ext ts",
     "generate": "langium generate",
     "generate:production": "langium generate --mode=production",
