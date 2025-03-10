@@ -24,9 +24,6 @@ export class CustomTokenBuilder extends DefaultTokenBuilder {
       throw new Error('Invalid token vocabulary received from DefaultTokenBuilder!');
     }
 
-    tokenTypes.push(tokenTypes.shift()!); // https://github.com/eclipse-langium/langium/issues/1828
-    tokenTypes.push(tokenTypes.shift()!);
-
     const rootModeTokens = tokenTypes.filter(
       (token) =>
         !token.name.startsWith('NODE_') && // inside nodes

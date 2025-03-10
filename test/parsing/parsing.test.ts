@@ -64,7 +64,7 @@ describe('Parsing tests', () => {
       ],
     });
   });
-  
+
   test('parse single node with a child with a word', async () => {
     document = await parse(`
       [name value]
@@ -80,6 +80,39 @@ describe('Parsing tests', () => {
       ],
     });
   });
+
+  test('parse single node with two children', async () => {
+    document = await parse(`
+      [name[name] value]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    const root = document.parseResult.value;
+    expect(root).toMatchObject({
+      nodes: [
+        {
+          name: 'name',
+          children: [{ name: 'name' }, ' value'],
+        },
+      ],
+    });
+  });
+  
+  test('parse single node with a child with a quoted word with space', async () => {
+    document = await parse(`
+      [name« value»]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    const root = document.parseResult.value;
+    expect(root).toMatchObject({
+      nodes: [
+        {
+          name: 'name',
+          children: [' value'],
+        },
+      ],
+    });
+  });
+
 });
 
 function checkDocumentValid(document: LangiumDocument): string {

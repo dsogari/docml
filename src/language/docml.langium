@@ -13,10 +13,11 @@ Node:
   )?
   CLOSE_NODE;
 
-Text1 returns string: (Quote | NODE_TEXT_WITH_SEP)+;
+Text1 returns string: (Quote | Text3) Text2?;
 Text2 returns string: (Quote | NODE_TEXT_WITH_SEP | NODE_NAME)+;
+Text3 returns string: NODE_TEXT_WITH_SEP; // HACK: remove leading space from just this rule
 Quote returns string: OPEN_QUOTE (Quote | QUOTE_TEXT)? CLOSE_QUOTE;
-
+  
 terminal OPEN_NODE:           /\[/;   // valid anywhere
 terminal CLOSE_NODE:          /]/;    // valid anywhere
 terminal OPEN_QUOTE:          /\xab/; // valid inside nodes and quotes
