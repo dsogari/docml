@@ -2,7 +2,8 @@ import { beforeAll, describe, expect, test } from 'bun:test';
 import { EmptyFileSystem, type LangiumDocument } from 'langium';
 import { parseHelper } from 'langium/test';
 import { createDocmlServices } from '../../src/language/docml-module.js';
-import { Doc, isDoc } from '../../src/language/generated/ast.js';
+import { type Doc } from '../../src/language/generated/ast.js';
+import { checkDocumentValid } from '../common.js';
 
 let services: ReturnType<typeof createDocmlServices>;
 let parse: ReturnType<typeof parseHelper<Doc>>;
@@ -96,7 +97,7 @@ describe('Parsing tests', () => {
       ],
     });
   });
-  
+
   test('parse single node with a child with a quoted word with space', async () => {
     document = await parse(`
       [name« value»]
@@ -112,16 +113,4 @@ describe('Parsing tests', () => {
       ],
     });
   });
-
 });
-
-function checkDocumentValid(document: LangiumDocument): string {
-  return (
-    (document.parseResult.parserErrors.length &&
-      `Parser errors: ${document.parseResult.parserErrors.map((e) => e.message).join('\n  ')}`) ||
-    (document.parseResult.value === undefined && `ParseResult is 'undefined'.`) ||
-    (!isDoc(document.parseResult.value) &&
-      `Root AST object is a ${document.parseResult.value.$type}, expected a '${Doc}'.`) ||
-    ''
-  );
-}

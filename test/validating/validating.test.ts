@@ -1,10 +1,9 @@
 import { beforeAll, describe, expect, test } from 'bun:test';
 import { EmptyFileSystem, type LangiumDocument } from 'langium';
-import { expandToString as s } from 'langium/generate';
 import { parseHelper } from 'langium/test';
-import { type Diagnostic } from 'vscode-languageserver-types';
 import { createDocmlServices } from '../../src/language/docml-module.js';
-import { Doc, isDoc } from '../../src/language/generated/ast.js';
+import { type Doc } from '../../src/language/generated/ast.js';
+import { checkDocumentValid, diagnosticToString } from '../common.js';
 
 let services: ReturnType<typeof createDocmlServices>;
 let parse: ReturnType<typeof parseHelper<Doc>>;
@@ -41,29 +40,6 @@ describe('Validating', () => {
 
     expect(
       checkDocumentValid(document) || document?.diagnostics?.map(diagnosticToString)?.join('\n')
-    ).toEqual(
-      // 'expect.stringContaining()' makes our test robust against future additions of further validation rules
-      expect.stringContaining(s`
-        [1:7..1:9]: Scope name should not be empty.
-      `)
-    );
+    ).toMatch('[1:7..1:9]: Scope name should not be empty.');
   });
 });
-
-function checkDocumentValid(document: LangiumDocument): string | undefined {
-  return (
-    (document.parseResult.parserErrors.length &&
-      s`
-        Parser errors:
-          ${document.parseResult.parserErrors.map((e) => e.message).join('\n  ')}
-    `) ||
-    (document.parseResult.value === undefined && `ParseResult is 'undefined'.`) ||
-    (!isDoc(document.parseResult.value) &&
-      `Root AST object is a ${document.parseResult.value.$type}, expected a '${Doc}'.`) ||
-    undefined
-  );
-}
-
-function diagnosticToString(d: Diagnostic) {
-  return `[${d.range.start.line}:${d.range.start.character}..${d.range.end.line}:${d.range.end.character}]: ${d.message}`;
-}
