@@ -9,8 +9,7 @@ import {
 } from 'langium/lsp';
 import { DocmlGeneratedModule, DocmlGeneratedSharedModule } from './generated/module.js';
 import { DocmlValidator, registerValidationChecks } from './docml-validator.js';
-import { CustomTokenBuilder } from './custom/token-builder.js';
-import { CustomValueConverter } from './custom/value-converter.js';
+import { CustomValueConverter } from './custom-value-converter.js';
 
 /**
  * Declaration of custom services - add your own service classes here.
@@ -34,7 +33,6 @@ export type DocmlServices = LangiumServices & DocmlAddedServices;
  */
 export const DocmlModule: Module<DocmlServices, PartialLangiumServices & DocmlAddedServices> = {
   parser: {
-    TokenBuilder: () => new CustomTokenBuilder(),
     ValueConverter: () => new CustomValueConverter(),
   },
   validation: {

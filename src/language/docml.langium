@@ -7,7 +7,7 @@ grammar Docml
  * A document is a forest of nodes.
  */
 entry Document:
-  (ROOT_WS? nodes+=Node)* ROOT_WS?;
+  (WS* nodes+=Node)* WS*;
 
 /**
  * A node may be either a comment or a record.
@@ -24,10 +24,16 @@ Node:
 Comment:
   OPEN_NODE
   (
-    separator?=NODE_WS
+    /**
+     * True if there is a separator between name and value.
+     */
+    separator?=WS
+    /**
+     * The children of this node.
+     */
     children+=(Node | Text)*
   )?
-  CLOSE_NODE;
+  NODE_CLOSE_NODE;
 
 /**
  * A record is a node with:
@@ -38,14 +44,24 @@ Comment:
  */
 Record:
   OPEN_NODE
+  /**
+   * The node name.
+   */
   name=Name
   (
     (
-      separator?=NODE_WS | children+=Node
+      /**
+       * True if there is a separator between name and value.
+       */
+      separator?=WS |
+      /**
+       * The children of this node.
+       */
+      children+=Node
     )
     children+=(Node | Text)*
   )?
-  CLOSE_NODE;
+  NODE_CLOSE_NODE;
 
 /**
  * A name may consist of non-space or quoted text, in any order.
@@ -57,30 +73,25 @@ Name returns string:
  * Text may consist of anything in any order.
  */
 Text returns string:
-  (NODE_QUOTE | NODE_TEXT | NODE_WS)+;
+  (NODE_QUOTE | NODE_TEXT | WS)+;
 
 /**
- * The opening bracket of a node.
+ * Whitespace may occur anywhere.
+ */
+terminal WS: /\s/;
+
+/**
+ * The opening bracket of a node may occur anywhere.
  */
 terminal OPEN_NODE: /\[/;
 
 /**
- * The closing bracket of a node.
+ * The closing bracket of a node may occur only within a node.
  */
-terminal CLOSE_NODE: /]/;
+terminal NODE_CLOSE_NODE: /]/;
 
 /**
- * Whitespace outside any node.
- */
-terminal ROOT_WS: /\s+/;
-
-/**
- * Whitespace within any node.
- */
-terminal NODE_WS: /\s/;
-
-/**
- * Node text may consist of:
+ * Node text can appear only within a node and may consist of:
  * - escaped brackets; or
  * - escaped quotation marks; or
  * - non-space, except brackets and quotation marks
@@ -89,7 +100,7 @@ terminal NODE_TEXT: // NOTE: remove escape character
   /((?<=\\)[\xab\xbb\[\]]|[^\xab\xbb\[\]\s])+/;
 
 /**
- * Quoted text may consist of:
+ * Quoted text can appear only within a node and may consist of:
  * - escaped quotation marks; or
  * - anything except quotation marks
  */

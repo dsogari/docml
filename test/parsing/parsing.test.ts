@@ -334,4 +334,53 @@ describe('Parsing tests', () => {
       ],
     });
   });
+  
+  test('parse record node with complex hierarchy', async () => {
+    document = await parse(`
+      [name[name[name]]]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    expect(document.parseResult.value).toMatchObject({
+      nodes: [
+        {
+          name: 'name',
+          separator: false,
+          children: [
+            {
+              name: 'name',
+              separator: false,
+              children: [
+                {
+                  name: 'name',
+                  separator: false,
+                  children: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+  });
+  
+  test('parse two record nodes', async () => {
+    document = await parse(`
+      [name] [name]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    expect(document.parseResult.value).toMatchObject({
+      nodes: [
+        {
+          name: 'name',
+          separator: false,
+          children: [],
+        },
+        {
+          name: 'name',
+          separator: false,
+          children: [],
+        },
+      ],
+    });
+  });
 });
