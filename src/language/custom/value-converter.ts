@@ -10,14 +10,10 @@ export class CustomValueConverter extends DefaultValueConverter {
     cstNode: CstNode
   ): ValueType {
     switch (rule.name) {
-      case 'NODE_TEXT':
-        return input.replace(/\\(?=[\xab\xbb\[\]])/g, ''); // remove escape character
-      case 'QUOTE_TEXT':
-        return input.replace(/\\(?=[\xab\xbb])/g, ''); // remove escape character
-      case 'QUOTE':
-        return input.slice(1, -1); // remove quotation marks
-      case 'Empty':
-        return ''; // HACK: workaround for empty string
+      case 'NODE_TEXT': // remove escape character
+        return input.replace(/\\(?=[\xab\xbb\[\]])/g, '');
+      case 'NODE_QUOTE': // remove surrounding quotation marks and escape character
+        return input.slice(1, -1).replace(/\\(?=[\xab\xbb])/g, '');
       default:
         return super.runConverter(rule, input, cstNode);
     }

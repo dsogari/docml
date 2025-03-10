@@ -2,16 +2,16 @@ import { beforeAll, describe, expect, test } from 'bun:test';
 import { EmptyFileSystem, type LangiumDocument } from 'langium';
 import { parseHelper } from 'langium/test';
 import { createDocmlServices } from '../../src/language/docml-module.js';
-import { type Doc } from '../../src/language/generated/ast.js';
+import { type Document } from '../../src/language/generated/ast.js';
 import { checkDocumentValid, diagnosticToString } from '../common.js';
 
 let services: ReturnType<typeof createDocmlServices>;
-let parse: ReturnType<typeof parseHelper<Doc>>;
-let document: LangiumDocument<Doc> | undefined;
+let parse: ReturnType<typeof parseHelper<Document>>;
+let document: LangiumDocument<Document> | undefined;
 
 beforeAll(async () => {
   services = createDocmlServices(EmptyFileSystem);
-  const doParse = parseHelper<Doc>(services.Docml);
+  const doParse = parseHelper<Document>(services.Docml);
   parse = (input: string) => doParse(input, { validation: true });
 
   // activate the following if your linking test requires elements from a built-in library, for example

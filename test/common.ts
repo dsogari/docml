@@ -1,6 +1,6 @@
 import { type LangiumDocument } from 'langium';
 import { type Diagnostic } from 'vscode-languageserver-types';
-import { Doc, isDoc } from '../src/language/generated/ast.js';
+import { Document, isDocument } from '../src/language/generated/ast.js';
 
 export function checkDocumentValid(document: LangiumDocument): string {
   return (
@@ -9,8 +9,8 @@ export function checkDocumentValid(document: LangiumDocument): string {
         .map((e) => e.message)
         .join('\n  ')}`) ||
     (document.parseResult.value === undefined && `ParseResult is 'undefined'.`) ||
-    (!isDoc(document.parseResult.value) &&
-      `Root AST object is a ${document.parseResult.value.$type}, expected a '${Doc}'.`) ||
+    (!isDocument(document.parseResult.value) &&
+      `Root AST object is a ${document.parseResult.value.$type}, expected a '${Document}'.`) ||
     ''
   );
 }

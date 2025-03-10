@@ -2,23 +2,88 @@ import { beforeAll, describe, expect, test } from 'bun:test';
 import { EmptyFileSystem, type LangiumDocument } from 'langium';
 import { parseHelper } from 'langium/test';
 import { createDocmlServices } from '../../src/language/docml-module.js';
-import { type Doc } from '../../src/language/generated/ast.js';
+import { type Document } from '../../src/language/generated/ast.js';
 import { checkDocumentValid } from '../common.js';
 
 let services: ReturnType<typeof createDocmlServices>;
-let parse: ReturnType<typeof parseHelper<Doc>>;
-let document: LangiumDocument<Doc> | undefined;
+let parse: ReturnType<typeof parseHelper<Document>>;
+let document: LangiumDocument<Document> | undefined;
 
 beforeAll(async () => {
   services = createDocmlServices(EmptyFileSystem);
-  parse = parseHelper<Doc>(services.Docml);
+  parse = parseHelper<Document>(services.Docml);
 
   // activate the following if your linking test requires elements from a built-in library, for example
   // await services.shared.workspace.WorkspaceManager.initializeWorkspace([]);
 });
 
 describe('Parsing tests', () => {
-  test('parse single node with no children', async () => {
+  test('parse comment node with no children', async () => {
+    document = await parse(`
+      []
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    expect(document.parseResult.value).toMatchObject({
+      nodes: [
+        {
+          separator: false,
+          children: [],
+        },
+      ],
+    });
+  });
+
+  test('parse comment node with an empty child', async () => {
+    document = await parse(`
+      [ ]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    expect(document.parseResult.value).toMatchObject({
+      nodes: [
+        {
+          separator: true,
+          children: [],
+        },
+      ],
+    });
+  });
+
+  test('parse comment node with a text child with space', async () => {
+    document = await parse(`
+      [  ]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    expect(document.parseResult.value).toMatchObject({
+      nodes: [
+        {
+          separator: true,
+          children: [' '],
+        },
+      ],
+    });
+  });
+
+  test('parse comment node with a record child', async () => {
+    document = await parse(`
+      [ [name]]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    expect(document.parseResult.value).toMatchObject({
+      nodes: [
+        {
+          separator: true,
+          children: [
+            {
+              name: 'name',
+              children: [],
+            },
+          ],
+        },
+      ],
+    });
+  });
+
+  test('parse record node with no children', async () => {
     document = await parse(`
       [name]
     `);
@@ -27,13 +92,14 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name',
+          separator: false,
           children: [],
         },
       ],
     });
   });
 
-  test('parse single node with an empty child', async () => {
+  test('parse record node with an empty child', async () => {
     document = await parse(`
       [name ]
     `);
@@ -42,13 +108,14 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name',
-          children: [''],
+          separator: true,
+          children: [],
         },
       ],
     });
   });
 
-  test('parse single node with a child with space', async () => {
+  test('parse record node with a text child with space', async () => {
     document = await parse(`
       [name  ]
     `);
@@ -57,13 +124,14 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name',
+          separator: true,
           children: [' '],
         },
       ],
     });
   });
 
-  test('parse single node with a child with a word', async () => {
+  test('parse record node with a text child with a word', async () => {
     document = await parse(`
       [name value]
     `);
@@ -72,13 +140,14 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name',
+          separator: true,
           children: ['value'],
         },
       ],
     });
   });
 
-  test('parse single node with two children', async () => {
+  test('parse record node with a record child and a text child', async () => {
     document = await parse(`
       [name[name] value]
     `);
@@ -87,13 +156,14 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name',
+          separator: false,
           children: [{ name: 'name' }, ' value'],
         },
       ],
     });
   });
 
-  test('parse single node with a name with quoted word with space', async () => {
+  test('parse record node with a name with quoted word with space', async () => {
     document = await parse(`
       [name« value»]
     `);
@@ -102,13 +172,14 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name value',
+          separator: false,
           children: [],
         },
       ],
     });
   });
 
-  test('parse single node with a child with empty quote', async () => {
+  test('parse record node with a text child with empty quote', async () => {
     document = await parse(`
       [name «»]
     `);
@@ -117,13 +188,14 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name',
+          separator: true,
           children: [''],
         },
       ],
     });
   });
 
-  test('parse single node with a child with a quoted word with space', async () => {
+  test('parse record node with a text child with a quoted word with space', async () => {
     document = await parse(`
       [name « value»]
     `);
@@ -132,13 +204,14 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name',
+          separator: true,
           children: [' value'],
         },
       ],
     });
   });
 
-  test('parse single node with a name with quoted word with inner quotes', async () => {
+  test('parse record node with a name with quoted word with space', async () => {
     document = await parse(`
       [name« value»]
     `);
@@ -147,13 +220,14 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name value',
+          separator: false,
           children: [],
         },
       ],
     });
   });
 
-  test('parse single node with escaped brackets', async () => {
+  test('parse record node with a name with escaped brackets', async () => {
     document = await parse(`
       [name\\[ value\\]]
     `);
@@ -162,13 +236,14 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name[',
+          separator: true,
           children: ['value]'],
         },
       ],
     });
   });
 
-  test('parse single node with escaped quotes', async () => {
+  test('parse record node with a name with escaped quotes', async () => {
     document = await parse(`
       [name\\« value\\»]
     `);
@@ -177,13 +252,14 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name«',
+          separator: true,
           children: ['value»'],
         },
       ],
     });
   });
 
-  test('parse single node with a single child', async () => {
+  test('parse record node with a record child', async () => {
     document = await parse(`
       [name [name]]
     `);
@@ -192,9 +268,11 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name',
+          separator: true,
           children: [
             {
               name: 'name',
+              separator: false,
               children: [],
             },
           ],
@@ -203,7 +281,7 @@ describe('Parsing tests', () => {
     });
   });
   
-  test('parse single node with two children', async () => {
+  test('parse record node with two record children with no separator', async () => {
     document = await parse(`
       [name[name][name]]
     `);
@@ -212,13 +290,16 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name',
+          separator: false,
           children: [
             {
               name: 'name',
+              separator: false,
               children: [],
             },
             {
               name: 'name',
+              separator: false,
               children: [],
             },
           ],
@@ -227,7 +308,7 @@ describe('Parsing tests', () => {
     });
   });
 
-  test('parse single node with two children (with separator)', async () => {
+  test('parse record node with two record children with separator', async () => {
     document = await parse(`
       [name [name][name]]
     `);
@@ -236,13 +317,16 @@ describe('Parsing tests', () => {
       nodes: [
         {
           name: 'name',
+          separator: true,
           children: [
             {
               name: 'name',
+              separator: false,
               children: [],
             },
             {
               name: 'name',
+              separator: false,
               children: [],
             },
           ],

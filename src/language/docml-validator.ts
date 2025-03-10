@@ -1,5 +1,5 @@
 import type { ValidationAcceptor, ValidationChecks } from 'langium';
-import type { DocmlAstType, Node } from './generated/ast.js';
+import { isRecord, type DocmlAstType, type Node } from './generated/ast.js';
 import type { DocmlServices } from './docml-module.js';
 
 /**
@@ -19,7 +19,7 @@ export function registerValidationChecks(services: DocmlServices) {
  */
 export class DocmlValidator {
   checkNodeNameDoesNotContainEmptyScopes(node: Node, accept: ValidationAcceptor): void {
-    if (node.name) {
+    if (isRecord(node)) {
       const scopes = node.name.split(':').slice(1, -1);
       if (scopes.includes('')) {
         accept('warning', 'Scope name should not be empty.', { node, property: 'name' });
