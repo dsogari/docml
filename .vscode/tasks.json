@@ -4,14 +4,14 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build DocML",
+      "label": "Build Docml",
       "command": "bun run generate && bun run build",
       "type": "shell",
       "group": {
         "kind": "build",
         "isDefault": true
       },
-      "detail": "Generate grammar and build the DocML language",
+      "detail": "Generate grammar and build the Docml language",
       "icon": {
         "color": "terminal.ansiGreen",
         "id": "server-process"

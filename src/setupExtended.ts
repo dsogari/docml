@@ -12,7 +12,7 @@ export const setupConfigExtended = (): UserConfig => {
             editorAppConfig: {
                 $type: 'extended',
                 languageId: 'docml',
-                code: `// DocML is running in the web!`,
+                code: `// Docml is running in the web!`,
                 useDiffEditor: false,
                 extensions: [{
                     config: {

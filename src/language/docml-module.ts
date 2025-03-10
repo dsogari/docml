@@ -1,24 +1,31 @@
 import { type Module, inject } from 'langium';
-import { createDefaultModule, createDefaultSharedModule, type DefaultSharedModuleContext, type LangiumServices, type LangiumSharedServices, type PartialLangiumServices } from 'langium/lsp';
+import {
+  createDefaultModule,
+  createDefaultSharedModule,
+  type DefaultSharedModuleContext,
+  type LangiumServices,
+  type LangiumSharedServices,
+  type PartialLangiumServices,
+} from 'langium/lsp';
 import { DocmlGeneratedModule, DocmlGeneratedSharedModule } from './generated/module.js';
 import { DocmlValidator, registerValidationChecks } from './docml-validator.js';
-import { CustomTokenBuilder } from './custom-token-builder.js';
-import { CustomValueConverter } from './custom-value-converter.js';
+import { CustomTokenBuilder } from './custom/token-builder.js';
+import { CustomValueConverter } from './custom/value-converter.js';
 
 /**
  * Declaration of custom services - add your own service classes here.
  */
 export type DocmlAddedServices = {
-    validation: {
-        DocmlValidator: DocmlValidator
-    }
-}
+  validation: {
+    DocmlValidator: DocmlValidator;
+  };
+};
 
 /**
  * Union of Langium default services and your custom services - use this as constructor parameter
  * of custom service classes.
  */
-export type DocmlServices = LangiumServices & DocmlAddedServices
+export type DocmlServices = LangiumServices & DocmlAddedServices;
 
 /**
  * Dependency injection module that overrides Langium default services and contributes the
@@ -26,13 +33,13 @@ export type DocmlServices = LangiumServices & DocmlAddedServices
  * selected services, while the custom services must be fully specified.
  */
 export const DocmlModule: Module<DocmlServices, PartialLangiumServices & DocmlAddedServices> = {
-    parser: {
-        TokenBuilder: () => new CustomTokenBuilder(),
-        ValueConverter: () => new CustomValueConverter(),
-    },
-    validation: {
-        DocmlValidator: () => new DocmlValidator()
-    }
+  parser: {
+    TokenBuilder: () => new CustomTokenBuilder(),
+    ValueConverter: () => new CustomValueConverter(),
+  },
+  validation: {
+    DocmlValidator: () => new DocmlValidator(),
+  },
 };
 
 /**
@@ -51,24 +58,17 @@ export const DocmlModule: Module<DocmlServices, PartialLangiumServices & DocmlAd
  * @returns An object wrapping the shared services and the language-specific services
  */
 export function createDocmlServices(context: DefaultSharedModuleContext): {
-    shared: LangiumSharedServices,
-    Docml: DocmlServices
+  shared: LangiumSharedServices;
+  Docml: DocmlServices;
 } {
-    const shared = inject(
-        createDefaultSharedModule(context),
-        DocmlGeneratedSharedModule
-    );
-    const Docml = inject(
-        createDefaultModule({ shared }),
-        DocmlGeneratedModule,
-        DocmlModule
-    );
-    shared.ServiceRegistry.register(Docml);
-    registerValidationChecks(Docml);
-    if (!context.connection) {
-        // We don't run inside a language server
-        // Therefore, initialize the configuration provider instantly
-        shared.workspace.ConfigurationProvider.initialized({});
-    }
-    return { shared, Docml };
+  const shared = inject(createDefaultSharedModule(context), DocmlGeneratedSharedModule);
+  const Docml = inject(createDefaultModule({ shared }), DocmlGeneratedModule, DocmlModule);
+  shared.ServiceRegistry.register(Docml);
+  registerValidationChecks(Docml);
+  if (!context.connection) {
+    // We don't run inside a language server
+    // Therefore, initialize the configuration provider instantly
+    shared.workspace.ConfigurationProvider.initialized({});
+  }
+  return { shared, Docml };
 }

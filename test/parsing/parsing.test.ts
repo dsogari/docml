@@ -24,11 +24,15 @@ describe('Parsing tests', () => {
     expect(checkDocumentValid(document)).toEqual('');
     const root = document.parseResult.value;
     expect(root).toMatchObject({
-      name: 'name',
-      children: [],
+      nodes: [
+        {
+          name: 'name',
+          children: [],
+        },
+      ],
     });
   });
-  
+
   test('parse single node with an empty child', async () => {
     document = await parse(`
       [name ]
@@ -36,11 +40,15 @@ describe('Parsing tests', () => {
     expect(checkDocumentValid(document)).toEqual('');
     const root = document.parseResult.value;
     expect(root).toMatchObject({
-      name: 'name',
-      children: [''],
+      nodes: [
+        {
+          name: 'name',
+          children: [''],
+        },
+      ],
     });
   });
-  
+
   test('parse single node with a child with space', async () => {
     document = await parse(`
       [name  ]
@@ -48,8 +56,28 @@ describe('Parsing tests', () => {
     expect(checkDocumentValid(document)).toEqual('');
     const root = document.parseResult.value;
     expect(root).toMatchObject({
-      name: 'name',
-      children: [' '],
+      nodes: [
+        {
+          name: 'name',
+          children: [' '],
+        },
+      ],
+    });
+  });
+  
+  test('parse single node with a child with a word', async () => {
+    document = await parse(`
+      [name value]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    const root = document.parseResult.value;
+    expect(root).toMatchObject({
+      nodes: [
+        {
+          name: 'name',
+          children: ['value'],
+        },
+      ],
     });
   });
 });

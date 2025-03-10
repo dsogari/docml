@@ -10,7 +10,7 @@ export function generateJavaScript(doc: Doc, filePath: string, destination: stri
 
     const fileNode = expandToNode`
         "use strict";
-        console.log(${doc.name});
+        console.log(${doc.nodes.map((node) => node.name)});
     `.appendNewLineIfNotEmpty();
 
     if (!fs.existsSync(data.destination)) {

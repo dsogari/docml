@@ -8,6 +8,7 @@ import type { IMultiModeLexerDefinition, TokenType, TokenVocabulary } from 'chev
 
 const ROOT_MODE = 'root_mode';
 const NODE_MODE = 'node_mode';
+const QUOTE_MODE = 'quote_mode';
 
 /**
  * @see https://eclipse-langium.github.io/langium-previews/pr-previews/pr-132/guides/multi-mode-lexing/
@@ -26,12 +27,22 @@ export class CustomTokenBuilder extends DefaultTokenBuilder {
     tokenTypes.push(tokenTypes.shift()!); // https://github.com/eclipse-langium/langium/issues/1828
     tokenTypes.push(tokenTypes.shift()!);
 
-    const rootModeTokens = tokenTypes.filter((token) => !token.name.startsWith('NODE_'));
-    const nodeModeTokens = tokenTypes.filter((token) => !token.name.startsWith('ROOT_'));
+    const rootModeTokens = tokenTypes.filter(
+      (token) =>
+        !token.name.startsWith('NODE_') && // inside nodes
+        !token.name.includes('QUOTE') // open, close and inside quotes
+    );
+    const nodeModeTokens = tokenTypes.filter(
+      (token) =>
+        !token.name.startsWith('ROOT_') && // outside nodes
+        !token.name.startsWith('QUOTE_') // inside quotes
+    );
+    const quoteModeTokens = tokenTypes.filter((token) => token.name.includes('QUOTE'));
     const multiModeLexerDef: IMultiModeLexerDefinition = {
       modes: {
         [ROOT_MODE]: rootModeTokens,
         [NODE_MODE]: nodeModeTokens,
+        [QUOTE_MODE]: quoteModeTokens,
       },
       defaultMode: ROOT_MODE,
     };
@@ -40,9 +51,11 @@ export class CustomTokenBuilder extends DefaultTokenBuilder {
 
   protected override buildTerminalToken(terminal: GrammarAST.TerminalRule): TokenType {
     let tokenType = super.buildTerminalToken(terminal);
-    if (tokenType.name === 'OPEN') {
+    if (tokenType.name === 'OPEN_NODE') {
       tokenType.PUSH_MODE = NODE_MODE;
-    } else if (tokenType.name === 'CLOSE') {
+    } else if (tokenType.name === 'OPEN_QUOTE') {
+      tokenType.PUSH_MODE = QUOTE_MODE;
+    } else if (tokenType.name.includes('CLOSE_')) {
       tokenType.POP_MODE = true;
     }
     return tokenType;
