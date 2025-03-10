@@ -161,4 +161,36 @@ describe('Parsing tests', () => {
       ],
     });
   });
+  
+  test('parse single node with escaped brackets', async () => {
+    document = await parse(`
+      [name\\[ value\\]]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    const root = document.parseResult.value;
+    expect(root).toMatchObject({
+      nodes: [
+        {
+          name: 'name[',
+          children: ['value]'],
+        },
+      ],
+    });
+  });
+  
+  test('parse single node with escaped quotes', async () => {
+    document = await parse(`
+      [name\\« value\\»]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    const root = document.parseResult.value;
+    expect(root).toMatchObject({
+      nodes: [
+        {
+          name: 'name«',
+          children: ['value»'],
+        },
+      ],
+    });
+  });
 });

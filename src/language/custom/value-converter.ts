@@ -9,12 +9,17 @@ export class CustomValueConverter extends DefaultValueConverter {
     input: string,
     cstNode: CstNode
   ): ValueType {
-    if (rule.name === 'Quote') {
-      return input.slice(1, -1); // remove quotation marks
+    switch (rule.name) {
+      case 'NODE_TEXT':
+        return input.replace(/\\(?=[\xab\xbb\[\]])/g, ''); // remove escape character
+      case 'QUOTE_TEXT':
+        return input.replace(/\\(?=[\xab\xbb])/g, ''); // remove escape character
+      case 'Quote':
+        return input.slice(1, -1); // remove quotation marks
+      case 'Text1':
+        return input.slice(1); // remove leading space
+      default:
+        return super.runConverter(rule, input, cstNode);
     }
-    if (rule.name === 'Text1') {
-      return input.slice(1); // remove leading space
-    }
-    return super.runConverter(rule, input, cstNode);
   }
 }
