@@ -10,9 +10,9 @@ export class CustomValueConverter extends DefaultValueConverter {
     cstNode: CstNode
   ): ValueType {
     if (rule.name === 'Quote') {
-      return input.slice(1, -1); // remove leading and trailing quotation marks
+      return input.slice(1, -1); // remove quotation marks
     }
-    if (rule.name === 'Text3') {
+    if (rule.name === 'Text1') {
       return input.slice(1); // remove leading space
     }
     return super.runConverter(rule, input, cstNode);

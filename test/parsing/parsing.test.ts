@@ -98,7 +98,7 @@ describe('Parsing tests', () => {
     });
   });
 
-  test('parse single node with a child with a quoted word with space', async () => {
+  test('parse single node with a name with quoted word with space', async () => {
     document = await parse(`
       [name« value»]
     `);
@@ -107,8 +107,56 @@ describe('Parsing tests', () => {
     expect(root).toMatchObject({
       nodes: [
         {
+          name: 'name value',
+          children: [],
+        },
+      ],
+    });
+  });
+
+  test('parse single node with a child with empty quote', async () => {
+    document = await parse(`
+      [name «»]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    const root = document.parseResult.value;
+    expect(root).toMatchObject({
+      nodes: [
+        {
+          name: 'name',
+          children: [''],
+        },
+      ],
+    });
+  });
+  
+  test('parse single node with a child with a quoted word with space', async () => {
+    document = await parse(`
+      [name « value»]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    const root = document.parseResult.value;
+    expect(root).toMatchObject({
+      nodes: [
+        {
           name: 'name',
           children: [' value'],
+        },
+      ],
+    });
+  });
+  
+  test('parse single node with a name with quoted word with inner quotes', async () => {
+    document = await parse(`
+      [name« value»]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    const root = document.parseResult.value;
+    expect(root).toMatchObject({
+      nodes: [
+        {
+          name: 'name value',
+          children: [],
         },
       ],
     });
