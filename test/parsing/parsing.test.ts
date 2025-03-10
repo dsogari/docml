@@ -23,8 +23,7 @@ describe('Parsing tests', () => {
       [name]
     `);
     expect(checkDocumentValid(document)).toEqual('');
-    const root = document.parseResult.value;
-    expect(root).toMatchObject({
+    expect(document.parseResult.value).toMatchObject({
       nodes: [
         {
           name: 'name',
@@ -39,8 +38,7 @@ describe('Parsing tests', () => {
       [name ]
     `);
     expect(checkDocumentValid(document)).toEqual('');
-    const root = document.parseResult.value;
-    expect(root).toMatchObject({
+    expect(document.parseResult.value).toMatchObject({
       nodes: [
         {
           name: 'name',
@@ -55,8 +53,7 @@ describe('Parsing tests', () => {
       [name  ]
     `);
     expect(checkDocumentValid(document)).toEqual('');
-    const root = document.parseResult.value;
-    expect(root).toMatchObject({
+    expect(document.parseResult.value).toMatchObject({
       nodes: [
         {
           name: 'name',
@@ -71,8 +68,7 @@ describe('Parsing tests', () => {
       [name value]
     `);
     expect(checkDocumentValid(document)).toEqual('');
-    const root = document.parseResult.value;
-    expect(root).toMatchObject({
+    expect(document.parseResult.value).toMatchObject({
       nodes: [
         {
           name: 'name',
@@ -87,8 +83,7 @@ describe('Parsing tests', () => {
       [name[name] value]
     `);
     expect(checkDocumentValid(document)).toEqual('');
-    const root = document.parseResult.value;
-    expect(root).toMatchObject({
+    expect(document.parseResult.value).toMatchObject({
       nodes: [
         {
           name: 'name',
@@ -103,8 +98,7 @@ describe('Parsing tests', () => {
       [name« value»]
     `);
     expect(checkDocumentValid(document)).toEqual('');
-    const root = document.parseResult.value;
-    expect(root).toMatchObject({
+    expect(document.parseResult.value).toMatchObject({
       nodes: [
         {
           name: 'name value',
@@ -119,8 +113,7 @@ describe('Parsing tests', () => {
       [name «»]
     `);
     expect(checkDocumentValid(document)).toEqual('');
-    const root = document.parseResult.value;
-    expect(root).toMatchObject({
+    expect(document.parseResult.value).toMatchObject({
       nodes: [
         {
           name: 'name',
@@ -129,14 +122,13 @@ describe('Parsing tests', () => {
       ],
     });
   });
-  
+
   test('parse single node with a child with a quoted word with space', async () => {
     document = await parse(`
       [name « value»]
     `);
     expect(checkDocumentValid(document)).toEqual('');
-    const root = document.parseResult.value;
-    expect(root).toMatchObject({
+    expect(document.parseResult.value).toMatchObject({
       nodes: [
         {
           name: 'name',
@@ -145,14 +137,13 @@ describe('Parsing tests', () => {
       ],
     });
   });
-  
+
   test('parse single node with a name with quoted word with inner quotes', async () => {
     document = await parse(`
       [name« value»]
     `);
     expect(checkDocumentValid(document)).toEqual('');
-    const root = document.parseResult.value;
-    expect(root).toMatchObject({
+    expect(document.parseResult.value).toMatchObject({
       nodes: [
         {
           name: 'name value',
@@ -161,14 +152,13 @@ describe('Parsing tests', () => {
       ],
     });
   });
-  
+
   test('parse single node with escaped brackets', async () => {
     document = await parse(`
       [name\\[ value\\]]
     `);
     expect(checkDocumentValid(document)).toEqual('');
-    const root = document.parseResult.value;
-    expect(root).toMatchObject({
+    expect(document.parseResult.value).toMatchObject({
       nodes: [
         {
           name: 'name[',
@@ -177,18 +167,85 @@ describe('Parsing tests', () => {
       ],
     });
   });
-  
+
   test('parse single node with escaped quotes', async () => {
     document = await parse(`
       [name\\« value\\»]
     `);
     expect(checkDocumentValid(document)).toEqual('');
-    const root = document.parseResult.value;
-    expect(root).toMatchObject({
+    expect(document.parseResult.value).toMatchObject({
       nodes: [
         {
           name: 'name«',
           children: ['value»'],
+        },
+      ],
+    });
+  });
+
+  test('parse single node with a single child', async () => {
+    document = await parse(`
+      [name [name]]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    expect(document.parseResult.value).toMatchObject({
+      nodes: [
+        {
+          name: 'name',
+          children: [
+            {
+              name: 'name',
+              children: [],
+            },
+          ],
+        },
+      ],
+    });
+  });
+  
+  test('parse single node with two children', async () => {
+    document = await parse(`
+      [name[name][name]]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    expect(document.parseResult.value).toMatchObject({
+      nodes: [
+        {
+          name: 'name',
+          children: [
+            {
+              name: 'name',
+              children: [],
+            },
+            {
+              name: 'name',
+              children: [],
+            },
+          ],
+        },
+      ],
+    });
+  });
+
+  test('parse single node with two children (with separator)', async () => {
+    document = await parse(`
+      [name [name][name]]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    expect(document.parseResult.value).toMatchObject({
+      nodes: [
+        {
+          name: 'name',
+          children: [
+            {
+              name: 'name',
+              children: [],
+            },
+            {
+              name: 'name',
+              children: [],
+            },
+          ],
         },
       ],
     });

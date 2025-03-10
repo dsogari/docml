@@ -1,22 +1,29 @@
 grammar Docml
 
-entry Doc: (ROOT_WS? nodes+=Node)* ROOT_WS?;
+entry Doc:
+  (ROOT_WS? nodes+=Node)* ROOT_WS?;
 
 Node:
   OPEN_NODE
-  name=Text0
+  name=Text1                            // node name and...
   (
-    children+=(Node | Text1)
+    children+=Empty |                   // single empty child or...
     (
-      children+=(Node | Text2)
-    )*
-  )?
+      children+=Node |                  // first child or...
+      NODE_WS children+=(Node | Text2)  // separator and first child and...
+    )
+    children+=(Node | Text2)*           // the rest of the children or...
+  )?                                    // the node may have no children
   CLOSE_NODE;
 
-Text0 returns string: (Quote | NODE_TEXT)+;
-Text1 returns string: NODE_WS Text2?;                     // NOTE: remove leading space
-Text2 returns string: (Quote | NODE_TEXT | NODE_WS)+;
-Quote returns string: OPEN_QUOTE QUOTE_TEXT? CLOSE_QUOTE; // NOTE: remove quotation marks
+Empty returns string: // HACK: workaround for empty string
+  NODE_WS;
+
+Text1 returns string:
+  (QUOTE | NODE_TEXT)+;
+
+Text2 returns string:
+  (QUOTE | NODE_TEXT | NODE_WS)+;
 
 terminal OPEN_NODE:   /\[/;
 terminal CLOSE_NODE:  /]/;
@@ -27,3 +34,4 @@ terminal ROOT_WS:     /\s+/;
 terminal NODE_WS:     /\s/;
 terminal NODE_TEXT:   /((?<=\\)[\xab\xbb\[\]]|[^\xab\xbb\[\]\s])+/; // NOTE: remove escape character
 terminal QUOTE_TEXT:  /((?<=\\)[\xab\xbb]|[^\xab\xbb])+/;           // NOTE: remove escape character
+terminal QUOTE:       OPEN_QUOTE QUOTE_TEXT? CLOSE_QUOTE;           // NOTE: remove quotation marks
