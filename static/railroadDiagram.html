@@ -98,8 +98,8 @@
       definition: [
         {
           type: 'Terminal',
-          name: 'OPEN_NODE',
-          label: 'OPEN_NODE',
+          name: 'LEFT_BRACKET',
+          label: 'LEFT_BRACKET',
           idx: 1,
           pattern: '\\[',
         },
@@ -109,8 +109,8 @@
           definition: [
             {
               type: 'Terminal',
-              name: 'WS',
-              label: 'WS',
+              name: 'SINGLE_SPACE',
+              label: 'SINGLE_SPACE',
               idx: 2,
               pattern: '\\s',
             },
@@ -150,8 +150,8 @@
         },
         {
           type: 'Terminal',
-          name: 'NODE_CLOSE_NODE',
-          label: 'NODE_CLOSE_NODE',
+          name: 'RIGHT_BRACKET',
+          label: 'RIGHT_BRACKET',
           idx: 3,
           pattern: ']',
         },
@@ -164,14 +164,14 @@
       definition: [
         {
           type: 'Terminal',
-          name: 'OPEN_NODE',
-          label: 'OPEN_NODE',
+          name: 'LEFT_BRACKET',
+          label: 'LEFT_BRACKET',
           idx: 1,
           pattern: '\\[',
         },
         {
           type: 'NonTerminal',
-          name: 'NonSpace​',
+          name: 'Chunk​',
           idx: 1,
         },
         {
@@ -187,8 +187,8 @@
                   definition: [
                     {
                       type: 'Terminal',
-                      name: 'WS',
-                      label: 'WS',
+                      name: 'SINGLE_SPACE',
+                      label: 'SINGLE_SPACE',
                       idx: 2,
                       pattern: '\\s',
                     },
@@ -242,8 +242,8 @@
         },
         {
           type: 'Terminal',
-          name: 'NODE_CLOSE_NODE',
-          label: 'NODE_CLOSE_NODE',
+          name: 'RIGHT_BRACKET',
+          label: 'RIGHT_BRACKET',
           idx: 3,
           pattern: ']',
         },
@@ -263,7 +263,7 @@
               definition: [
                 {
                   type: 'NonTerminal',
-                  name: 'NonSpace​',
+                  name: 'Chunk​',
                   idx: 1,
                 },
               ],
@@ -284,7 +284,7 @@
     },
     {
       type: 'Rule',
-      name: 'NonSpace​',
+      name: 'Chunk​',
       orgText: '',
       definition: [
         {
@@ -300,8 +300,8 @@
                   definition: [
                     {
                       type: 'Terminal',
-                      name: 'NODE_TEXT',
-                      label: 'NODE_TEXT',
+                      name: 'VISIBLE_WORD',
+                      label: 'VISIBLE_WORD',
                       idx: 1,
                     },
                   ],
@@ -311,8 +311,8 @@
                   definition: [
                     {
                       type: 'Terminal',
-                      name: 'NODE_QUOTE',
-                      label: 'NODE_QUOTE',
+                      name: 'FRENCH_QUOTE',
+                      label: 'FRENCH_QUOTE',
                       idx: 2,
                     },
                   ],
@@ -334,8 +334,8 @@
           definition: [
             {
               type: 'Terminal',
-              name: 'WS',
-              label: 'WS',
+              name: 'SINGLE_SPACE',
+              label: 'SINGLE_SPACE',
               idx: 1,
               pattern: '\\s',
             },

@@ -4,6 +4,7 @@
 .vscodeignore
 *.langium
 *.lock
+*.svg
 *.toml
 *.txt
 LICENSE

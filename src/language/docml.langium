@@ -4,7 +4,7 @@
 grammar Docml
 
 /**
- * A document is a forest of nodes.
+ * A document is a forest (of node trees).
  */
 entry Document:
   (Space? nodes+=Node)* Space?;
@@ -17,102 +17,99 @@ Node:
 
 /**
  * A comment is a node with:
- * - one of
- *   - a separator and children; or
- *   - neither separator nor children
+ * - a separator and possible children; or
+ * - neither separator nor children
  */
 Comment:
-  OPEN_NODE
+  LEFT_BRACKET
   (
     /**
-     * True if there is a separator between name and value.
+     * True if the node contains a separator.
      */
-    separator?=WS
+    separator?=SINGLE_SPACE
     /**
-     * A child of this node may be one of:
-     * - another node; or
-     * - text sequence
+     * A child may be either a node or a text sequence.
      */
     children+=(Node | Text)*
   )?
-  NODE_CLOSE_NODE;
+  RIGHT_BRACKET;
 
 /**
  * A record is a node with:
  * - a name; and
- * - one of
- *   - (a separator or a node child) and remaining children; or
+ *   - (either a separator or a node child) and possible remaining children; or
  *   - neither separator nor children
  */
 Record:
-  OPEN_NODE
+  LEFT_BRACKET
   /**
    * The node name.
    */
-  name=NonSpace
+  name=Chunk
   (
     (
       /**
-       * True if there is a separator between name and value.
+       * True if the node contains a separator.
        */
-      separator?=WS |
+      separator?=SINGLE_SPACE |
       /**
-       * A child of this node may be one of:
-       * - another node; or
-       * - text sequence
+       * The first child will be a node if there is no separator.
        */
       children+=Node
     )
+    /**
+     * A child may be either a node or a text sequence.
+     */
     children+=(Node | Text)*
   )?
-  NODE_CLOSE_NODE;
+  RIGHT_BRACKET;
 
 /**
- * Text may consist of whitespace or non-space, in any order.
+ * A text sequence may be either chunk or space.
  */
 Text returns string:
-  NonSpace | Space;
+  Chunk | Space;
 
 /**
- * Non-space may consist of quoted or non-quoted text, in any order.
+ * A chunk consists of visible words or french quotes, in any order.
  */
-NonSpace returns string:
-  (NODE_TEXT | NODE_QUOTE)+;
+Chunk returns string:
+  (VISIBLE_WORD | FRENCH_QUOTE)+;
 
 /**
- * Space consists of one or more whitespace.
+ * A space consists of one or more whitespace characters.
  */
 Space returns string:
-  WS+;
+  SINGLE_SPACE+;
 
 /**
- * Whitespace may occur anywhere.
+ * A whitespace character may occur anywhere.
  */
-terminal WS: /\s/;
+terminal SINGLE_SPACE: /\s/;
 
 /**
  * The opening bracket of a node may occur anywhere.
  */
-terminal OPEN_NODE: /\[/;
+terminal LEFT_BRACKET: /\[/;
 
 /**
  * The closing bracket of a node may occur only within a node.
  */
-terminal NODE_CLOSE_NODE: /]/;
+terminal RIGHT_BRACKET: /]/;
 
 /**
- * Non-quoted text can appear only within a node and may consist of:
- * - escaped brackets; or
- * - escaped quotation marks; or
- * - non-space, except brackets and quotation marks
+ * A visible word may appear only within a node and consists of:
+ * - backslash followed by brackets; or
+ * - backslash followed by guillemets; or
+ * - non-whitespace, except brackets and guillemets
  */
-terminal NODE_TEXT: // NOTE: remove escape character
+terminal VISIBLE_WORD: // NOTE: remove backslash before brackets or guillemets
   /((?<=\\)[\xab\xbb[\]]|[^\xab\xbb[\]\s])+/;
 
 /**
- * Quoted text can appear only within a node and may consist of:
- * - escaped quotation marks; or
- * - anything except quotation marks
+ * A french quote may appear only within a node, is surrounded by guillemets and consists of:
+ * - backslash followed by guillemets; or
+ * - anything except guillemets
  */
-terminal NODE_QUOTE: // NOTE: remove surrounding quotation marks and escape character
+terminal FRENCH_QUOTE: // NOTE: remove surrounding guillemets and backslash before guillemets
   /\xab((?<=\\)[\xab\xbb]|[^\xab\xbb])*\xbb/;

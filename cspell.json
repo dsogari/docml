@@ -3,6 +3,7 @@
   "version": "0.2",
   "language": "en",
   "dictionaries": ["typescript"],
+  "words": ["guillemets"],
   "ignoreWords": ["Docml", "docml", "Langium", "Gast"],
   "ignorePaths": [
     ".git",
@@ -11,6 +12,7 @@
     ".vscodeignore",
     "*.lock",
     "*.json",
+    "*.svg",
     "*.toml",
     "*.txt",
     "package.json",

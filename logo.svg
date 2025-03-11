@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 20">
+  <style>
+    text {
+      font-family: "Lucida Console", Monaco, monospace;
+      fill: currentColor;
+      filter: invert(1);
+    }
+  </style>
+  <text y="15">[«Docml»]</text>
+</svg>

@@ -10,9 +10,9 @@ export class CustomValueConverter extends DefaultValueConverter {
     cstNode: CstNode,
   ): ValueType {
     switch (rule.name) {
-      case 'NODE_TEXT': // remove escape character
+      case 'VISIBLE_WORD': // remove backslash before brackets or guillemets
         return input.replace(/\\(?=[\xab\xbb[\]])/g, '');
-      case 'NODE_QUOTE': // remove surrounding quotation marks and escape character
+      case 'FRENCH_QUOTE': // remove surrounding guillemets and backslash before guillemets
         return input.slice(1, -1).replace(/\\(?=[\xab\xbb])/g, '');
       default:
         return super.runConverter(rule, input, cstNode);
