@@ -1,6 +1,6 @@
 import getEditorServiceOverride from '@codingame/monaco-vscode-editor-service-override';
 import getKeybindingsServiceOverride from '@codingame/monaco-vscode-keybindings-service-override';
-import { LanguageClientConfig } from 'monaco-editor-wrapper';
+import { type LanguageClientConfig } from 'monaco-editor-wrapper';
 import { useOpenEditorStub } from 'monaco-editor-wrapper/vscode/services';
 import { useWorkerFactory } from 'monaco-editor-wrapper/workerFactory';
 

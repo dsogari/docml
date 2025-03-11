@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 20">
   <style>
     text {
-      font-family: "Lucida Console", Monaco, monospace;
+      font-family: &quot;Lucida Console&quot;, Monaco, monospace;
       fill: currentColor;
       filter: invert(1);
     }

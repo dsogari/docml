@@ -33,7 +33,7 @@ function startLanguageClient(context: vscode.ExtensionContext): LanguageClient {
   const debugOptions = {
     execArgv: [
       '--nolazy',
-      `--inspect${process.env.DEBUG_BREAK ? '-brk' : ''}=${process.env.DEBUG_SOCKET || '6009'}`,
+      `--inspect${process.env['DEBUG_BREAK'] ? '-brk' : ''}=${process.env['DEBUG_SOCKET'] || '6009'}`,
     ],
   };
 

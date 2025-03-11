@@ -1,4 +1,5 @@
-import { CstNode, GrammarAST, DefaultValueConverter, ValueType } from 'langium';
+import type { CstNode, ValueType, GrammarAST } from 'langium';
+import { DefaultValueConverter } from 'langium';
 
 /**
  * @see https://eclipse-langium.github.io/langium-previews/pr-previews/pr-132/guides/multi-mode-lexing/

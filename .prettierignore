@@ -4,6 +4,7 @@
 .vscodeignore
 *.langium
 *.lock
+*.png
 *.svg
 *.toml
 *.txt
