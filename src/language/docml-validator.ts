@@ -4,6 +4,7 @@ import type { DocmlServices } from './docml-module.js';
 
 /**
  * Register custom validation checks.
+ * @param services The Docml services
  */
 export function registerValidationChecks(services: DocmlServices) {
   const registry = services.validation.ValidationRegistry;

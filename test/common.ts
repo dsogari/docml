@@ -2,6 +2,7 @@ import { type LangiumDocument } from 'langium';
 import { type Diagnostic } from 'vscode-languageserver-types';
 import { Document, isDocument } from '../src/language/generated/ast.js';
 
+/** @ignore */
 export function checkDocumentValid(document: LangiumDocument): string {
   return (
     (document.parseResult.parserErrors.length &&
@@ -15,6 +16,7 @@ export function checkDocumentValid(document: LangiumDocument): string {
   );
 }
 
+/** @ignore */
 export function diagnosticToString(d: Diagnostic) {
   return `[${d.range.start.line}:${d.range.start.character}..${d.range.end.line}:${d.range.end.character}]: ${d.message}`;
 }
