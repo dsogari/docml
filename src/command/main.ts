@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 import { type Document } from '../language/generated/ast.js';
 import chalk from 'chalk';
 import { Command } from 'commander';
@@ -25,21 +26,18 @@ export type GenerateOptions = {
   destination?: string;
 };
 
-/** @ignore */
-export default function (): void {
-  const program = new Command();
+const program = new Command();
 
-  program.version(JSON.parse(packageContent).version);
+program.version(JSON.parse(packageContent).version);
 
-  const fileExtensions = DocmlLanguageMetaData.fileExtensions.join(', ');
-  program
-    .command('generate')
-    .argument('<file>', `source file (possible file extensions: ${fileExtensions})`)
-    .option('-d, --destination <dir>', 'destination directory of generating')
-    .description(
-      'generates JavaScript code that prints "Hello, {name}!" for each greeting in a source file',
-    )
-    .action(generateAction);
+const fileExtensions = DocmlLanguageMetaData.fileExtensions.join(', ');
+program
+  .command('generate')
+  .argument('<file>', `source file (possible file extensions: ${fileExtensions})`)
+  .option('-d, --destination <dir>', 'destination directory of generating')
+  .description(
+    'generates JavaScript code that prints "Hello, {name}!" for each greeting in a source file',
+  )
+  .action(generateAction);
 
-  program.parse(process.argv);
-}
+program.parse();

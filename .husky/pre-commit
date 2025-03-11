@@ -1,13 +1,20 @@
 #!/usr/bin/env sh
 changed_files="$(git diff --cached --name-only)"
-if echo "$changed_files" | grep -Eq '^src\/.+\.langium$'; then
+
+if echo "$changed_files" | grep -Eq '\.langium$'; then
   bun run generate
 fi
-if echo "$changed_files" | grep -Eq '^(src|test)\/.+\.(ts|langium)$'; then
+if echo "$changed_files" | grep -Eq '^(src|test)\/'; then
   bun test --coverage
 fi
-if echo "$changed_files" | grep -Eq '^src\/'; then
-  bun run build
+if echo "$changed_files" | grep -Eq '^src\/command\/'; then
+  bun run build:command
+fi
+if echo "$changed_files" | grep -Eq '^src\/extension\/'; then
+  bun run build:extension
+fi
+if echo "$changed_files" | grep -Eq '^src\/language\/'; then
+  bun run build:language
 fi
 
 bun run lint-staged

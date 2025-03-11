@@ -9,7 +9,7 @@ export const setupConfigExtended = (): UserConfig => {
   );
   extensionFilesOrContents.set(
     '/docml-grammar.json',
-    new URL('../syntaxes/docml.tmLanguage.json', import.meta.url),
+    new URL('./syntaxes/docml.tmLanguage.json', import.meta.url),
   );
 
   return {

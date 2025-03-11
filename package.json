@@ -3,14 +3,14 @@
   "description": "Please enter a brief description here",
   "version": "0.0.1",
   "files": [
-    "bin",
     "out",
     "src"
   ],
   "type": "module",
   "scripts": {
     "prepare": "husky",
-    "build": "bun run build:extension && bun run build:language",
+    "build": "bun run build:command && bun run build:extension && bun run build:language",
+    "build:command": "bun build --minify --target=node --outfile=out/command/main.js src/command/main.ts",
     "build:extension": "bun build --minify --target=node --format=cjs --external=vscode --outfile=out/extension/main.cjs src/extension/main.ts",
     "build:language": "bun build --minify --target=node --format=cjs --ignore-dce-annotations --outfile=out/language/main.cjs src/language/main.ts",
     "generate": "langium generate",
@@ -30,6 +30,7 @@
     "commander": "~11.0.0",
     "langium": "~3.4.0",
     "monaco-editor": "npm:@codingame/monaco-vscode-editor-api@~3.2.3",
+    "monaco-editor-workers": "^0.45.0",
     "monaco-editor-wrapper": "~4.0.2",
     "monaco-languageclient": "~8.1.1",
     "vscode-languageclient": "~9.0.1",
@@ -80,19 +81,19 @@
         "extensions": [
           ".docml"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "language-configuration.json"
       }
     ],
     "grammars": [
       {
         "language": "docml",
         "scopeName": "source.docml",
-        "path": "syntaxes/docml.tmLanguage.json"
+        "path": "src/syntaxes/docml.tmLanguage.json"
       }
     ]
   },
   "icon": "logo.png",
-  "main": "./out/extension/main.cjs",
+  "main": "out/extension/main.cjs",
   "activationEvents": [],
   "author": {
     "name": "Diego Sogari",
@@ -114,6 +115,7 @@
     "language"
   ],
   "license": "MIT",
+  "bin": "out/command/main.js",
   "prettier": {
     "printWidth": 100,
     "singleQuote": true
