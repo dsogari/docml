@@ -157,7 +157,7 @@ describe('Parsing tests', () => {
         {
           name: 'name',
           separator: false,
-          children: [{ name: 'name' }, ' value'],
+          children: [{ name: 'name' }, ' ', 'value'],
         },
       ],
     });
@@ -280,7 +280,7 @@ describe('Parsing tests', () => {
       ],
     });
   });
-  
+
   test('parse record node with two record children with no separator', async () => {
     document = await parse(`
       [name[name][name]]
@@ -334,7 +334,7 @@ describe('Parsing tests', () => {
       ],
     });
   });
-  
+
   test('parse record node with complex hierarchy', async () => {
     document = await parse(`
       [name[name[name]]]
@@ -362,7 +362,7 @@ describe('Parsing tests', () => {
       ],
     });
   });
-  
+
   test('parse two record nodes', async () => {
     document = await parse(`
       [name] [name]

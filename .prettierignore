@@ -1,0 +1,9 @@
+.husky
+.gitignore
+.prettierignore
+.vscodeignore
+*.langium
+*.lock
+*.toml
+*.txt
+LICENSE

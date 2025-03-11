@@ -7,7 +7,7 @@ grammar Docml
  * A document is a forest of nodes.
  */
 entry Document:
-  (WS* nodes+=Node)* WS*;
+  (Space? nodes+=Node)* Space?;
 
 /**
  * A node may be either a comment or a record.
@@ -29,9 +29,12 @@ Comment:
      */
     separator?=WS
     /**
-     * The children of this node.
+     * A child of this node may be one of:
+     * - another node
+     * - a sequence of non-space
+     * - a sequence of whitespace
      */
-    children+=(Node | Text)*
+    children+=(Node | NonSpace | Space)*
   )?
   NODE_CLOSE_NODE;
 
@@ -47,7 +50,7 @@ Record:
   /**
    * The node name.
    */
-  name=Name
+  name=NonSpace
   (
     (
       /**
@@ -55,25 +58,28 @@ Record:
        */
       separator?=WS |
       /**
-       * The children of this node.
+       * A child of this node may be one of:
+       * - another node
+       * - a sequence of non-space
+       * - a sequence of whitespace
        */
       children+=Node
     )
-    children+=(Node | Text)*
+    children+=(Node | NonSpace | Space)*
   )?
   NODE_CLOSE_NODE;
 
 /**
- * A name may consist of non-space or quoted text, in any order.
+ * Non-space may consist of node text or quoted text, in any order.
  */
-Name returns string:
+NonSpace returns string:
   (NODE_QUOTE | NODE_TEXT)+;
 
 /**
- * Text may consist of anything in any order.
+ * Space is a sequence of one or more whitespace.
  */
-Text returns string:
-  (NODE_QUOTE | NODE_TEXT | WS)+;
+Space returns string:
+  WS+;
 
 /**
  * Whitespace may occur anywhere.
