@@ -29,7 +29,7 @@ describe('Validating', () => {
       //  'checkDocumentValid()' to sort out (critical) typos first,
       // and then evaluate the diagnostics by converting them into human readable strings;
       // note that 'toHaveLength()' works for arrays and strings alike ;-)
-      checkDocumentValid(document) || document?.diagnostics?.map(diagnosticToString)?.join('\n')
+      checkDocumentValid(document) || document?.diagnostics?.map(diagnosticToString)?.join('\n'),
     ).toEqual('');
   });
 
@@ -39,7 +39,7 @@ describe('Validating', () => {
     `);
 
     expect(
-      checkDocumentValid(document) || document?.diagnostics?.map(diagnosticToString)?.join('\n')
+      checkDocumentValid(document) || document?.diagnostics?.map(diagnosticToString)?.join('\n'),
     ).toMatch('[1:7..1:9]: Scope name should not be empty.');
   });
 });

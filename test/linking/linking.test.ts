@@ -18,7 +18,9 @@ beforeAll(async () => {
 });
 
 afterEach(async () => {
-  document && clearDocuments(services.shared, [document]);
+  if (document) {
+    clearDocuments(services.shared, [document]);
+  }
 });
 
 describe('Linking tests', () => {
@@ -32,7 +34,7 @@ describe('Linking tests', () => {
       //  'checkDocumentValid()' to sort out (critical) typos first,
       // and then evaluate the cross references we're interested in by checking
       //  the referenced AST element as well as for a potential error message;
-      checkDocumentValid(document)
+      checkDocumentValid(document),
       // || document.parseResult.value.greetings.map(g => g.person.ref?.name || g.person.error?.message).join('\n')
     ).toBe('');
   });

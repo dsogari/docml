@@ -103,7 +103,7 @@ terminal NODE_CLOSE_NODE: /]/;
  * - non-space, except brackets and quotation marks
  */
 terminal NODE_TEXT: // NOTE: remove escape character
-  /((?<=\\)[\xab\xbb\[\]]|[^\xab\xbb\[\]\s])+/;
+  /((?<=\\)[\xab\xbb[\]]|[^\xab\xbb[\]\s])+/;
 
 /**
  * Quoted text can appear only within a node and may consist of:

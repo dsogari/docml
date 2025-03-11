@@ -4,10 +4,11 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { extractDestinationAndName } from './cli-util.js';
 
+/** @ignore */
 export function generateJavaScript(
   doc: Document,
   filePath: string,
-  destination: string | undefined
+  destination: string | undefined,
 ): string {
   const data = extractDestinationAndName(filePath, destination);
   const generatedFilePath = `${path.join(data.destination, data.name)}.js`;

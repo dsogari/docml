@@ -1,0 +1,339 @@
+<!-- This is a generated file -->
+<!doctype html>
+<meta charset="utf-8" />
+<style>
+  body {
+    background-color: hsl(30, 20%, 95%);
+  }
+</style>
+
+<link rel="stylesheet" href="https://unpkg.com/chevrotain@11.0.3/diagrams/diagrams.css" />
+
+<script src="https://unpkg.com/chevrotain@11.0.3/diagrams/vendor/railroad-diagrams.js"></script>
+<script src="https://unpkg.com/chevrotain@11.0.3/diagrams/src/diagrams_builder.js"></script>
+<script src="https://unpkg.com/chevrotain@11.0.3/diagrams/src/diagrams_behavior.js"></script>
+<script src="https://unpkg.com/chevrotain@11.0.3/diagrams/src/main.js"></script>
+
+<div id="diagrams" align="center"></div>
+
+<script>
+  window.serializedGrammar = [
+    {
+      type: 'Rule',
+      name: 'Document​',
+      orgText: '',
+      definition: [
+        {
+          type: 'Repetition',
+          idx: 1,
+          definition: [
+            {
+              type: 'Option',
+              idx: 1,
+              definition: [
+                {
+                  type: 'NonTerminal',
+                  name: 'Space​',
+                  idx: 1,
+                },
+              ],
+            },
+            {
+              type: 'NonTerminal',
+              name: 'Node​',
+              idx: 2,
+            },
+          ],
+        },
+        {
+          type: 'Option',
+          idx: 2,
+          definition: [
+            {
+              type: 'NonTerminal',
+              name: 'Space​',
+              idx: 3,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'Rule',
+      name: 'Node​',
+      orgText: '',
+      definition: [
+        {
+          type: 'Alternation',
+          idx: 1,
+          definition: [
+            {
+              type: 'Alternative',
+              definition: [
+                {
+                  type: 'NonTerminal',
+                  name: 'Comment​',
+                  idx: 1,
+                },
+              ],
+            },
+            {
+              type: 'Alternative',
+              definition: [
+                {
+                  type: 'NonTerminal',
+                  name: 'Record​',
+                  idx: 2,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'Rule',
+      name: 'Comment​',
+      orgText: '',
+      definition: [
+        {
+          type: 'Terminal',
+          name: 'OPEN_NODE',
+          label: 'OPEN_NODE',
+          idx: 1,
+          pattern: '\\[',
+        },
+        {
+          type: 'Option',
+          idx: 1,
+          definition: [
+            {
+              type: 'Terminal',
+              name: 'WS',
+              label: 'WS',
+              idx: 2,
+              pattern: '\\s',
+            },
+            {
+              type: 'Repetition',
+              idx: 1,
+              definition: [
+                {
+                  type: 'Alternation',
+                  idx: 1,
+                  definition: [
+                    {
+                      type: 'Alternative',
+                      definition: [
+                        {
+                          type: 'NonTerminal',
+                          name: 'Node​',
+                          idx: 1,
+                        },
+                      ],
+                    },
+                    {
+                      type: 'Alternative',
+                      definition: [
+                        {
+                          type: 'NonTerminal',
+                          name: 'NonSpace​',
+                          idx: 2,
+                        },
+                      ],
+                    },
+                    {
+                      type: 'Alternative',
+                      definition: [
+                        {
+                          type: 'NonTerminal',
+                          name: 'Space​',
+                          idx: 3,
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'Terminal',
+          name: 'NODE_CLOSE_NODE',
+          label: 'NODE_CLOSE_NODE',
+          idx: 3,
+          pattern: ']',
+        },
+      ],
+    },
+    {
+      type: 'Rule',
+      name: 'Record​',
+      orgText: '',
+      definition: [
+        {
+          type: 'Terminal',
+          name: 'OPEN_NODE',
+          label: 'OPEN_NODE',
+          idx: 1,
+          pattern: '\\[',
+        },
+        {
+          type: 'NonTerminal',
+          name: 'NonSpace​',
+          idx: 1,
+        },
+        {
+          type: 'Option',
+          idx: 1,
+          definition: [
+            {
+              type: 'Alternation',
+              idx: 1,
+              definition: [
+                {
+                  type: 'Alternative',
+                  definition: [
+                    {
+                      type: 'Terminal',
+                      name: 'WS',
+                      label: 'WS',
+                      idx: 2,
+                      pattern: '\\s',
+                    },
+                  ],
+                },
+                {
+                  type: 'Alternative',
+                  definition: [
+                    {
+                      type: 'NonTerminal',
+                      name: 'Node​',
+                      idx: 2,
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'Repetition',
+              idx: 1,
+              definition: [
+                {
+                  type: 'Alternation',
+                  idx: 2,
+                  definition: [
+                    {
+                      type: 'Alternative',
+                      definition: [
+                        {
+                          type: 'NonTerminal',
+                          name: 'Node​',
+                          idx: 3,
+                        },
+                      ],
+                    },
+                    {
+                      type: 'Alternative',
+                      definition: [
+                        {
+                          type: 'NonTerminal',
+                          name: 'NonSpace​',
+                          idx: 4,
+                        },
+                      ],
+                    },
+                    {
+                      type: 'Alternative',
+                      definition: [
+                        {
+                          type: 'NonTerminal',
+                          name: 'Space​',
+                          idx: 5,
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'Terminal',
+          name: 'NODE_CLOSE_NODE',
+          label: 'NODE_CLOSE_NODE',
+          idx: 3,
+          pattern: ']',
+        },
+      ],
+    },
+    {
+      type: 'Rule',
+      name: 'NonSpace​',
+      orgText: '',
+      definition: [
+        {
+          type: 'RepetitionMandatory',
+          idx: 1,
+          definition: [
+            {
+              type: 'Alternation',
+              idx: 1,
+              definition: [
+                {
+                  type: 'Alternative',
+                  definition: [
+                    {
+                      type: 'Terminal',
+                      name: 'NODE_QUOTE',
+                      label: 'NODE_QUOTE',
+                      idx: 1,
+                    },
+                  ],
+                },
+                {
+                  type: 'Alternative',
+                  definition: [
+                    {
+                      type: 'Terminal',
+                      name: 'NODE_TEXT',
+                      label: 'NODE_TEXT',
+                      idx: 2,
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'Rule',
+      name: 'Space​',
+      orgText: '',
+      definition: [
+        {
+          type: 'RepetitionMandatory',
+          idx: 1,
+          definition: [
+            {
+              type: 'Terminal',
+              name: 'WS',
+              label: 'WS',
+              idx: 1,
+              pattern: '\\s',
+            },
+          ],
+        },
+      ],
+    },
+  ];
+</script>
+
+<script>
+  var diagramsDiv = document.getElementById('diagrams');
+  main.drawDiagramsFromSerializedGrammar(serializedGrammar, diagramsDiv);
+</script>
