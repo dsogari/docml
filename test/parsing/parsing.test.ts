@@ -63,6 +63,21 @@ describe('Parsing tests', () => {
     });
   });
 
+  test('parse comment node with multiple children', async () => {
+    document = await parse(`
+      [  text  ]
+    `);
+    expect(checkDocumentValid(document)).toEqual('');
+    expect(document.parseResult.value).toMatchObject({
+      nodes: [
+        {
+          separator: true,
+          children: [' ', 'text', '  '],
+        },
+      ],
+    });
+  });
+
   test('parse comment node with a record child', async () => {
     document = await parse(`
       [ [name]]
@@ -149,7 +164,7 @@ describe('Parsing tests', () => {
 
   test('parse record node with a record child and a text child', async () => {
     document = await parse(`
-      [name[name] value]
+      [name[name]  value]
     `);
     expect(checkDocumentValid(document)).toEqual('');
     expect(document.parseResult.value).toMatchObject({
@@ -157,7 +172,7 @@ describe('Parsing tests', () => {
         {
           name: 'name',
           separator: false,
-          children: [{ name: 'name' }, ' ', 'value'],
+          children: [{ name: 'name' }, '  ', 'value'],
         },
       ],
     });
@@ -281,7 +296,7 @@ describe('Parsing tests', () => {
     });
   });
 
-  test('parse record node with two record children with no separator', async () => {
+  test('parse record node with multiple children with no separator', async () => {
     document = await parse(`
       [name[name][name]]
     `);
@@ -308,7 +323,7 @@ describe('Parsing tests', () => {
     });
   });
 
-  test('parse record node with two record children with separator', async () => {
+  test('parse record node with multiple children with separator', async () => {
     document = await parse(`
       [name [name][name]]
     `);
@@ -335,7 +350,7 @@ describe('Parsing tests', () => {
     });
   });
 
-  test('parse record node with complex hierarchy', async () => {
+  test('parse record node with nested children', async () => {
     document = await parse(`
       [name[name[name]]]
     `);
