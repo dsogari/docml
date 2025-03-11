@@ -19,7 +19,7 @@ Node:
  * A comment is a node with:
  * - one of
  *   - a separator and children; or
- *   - no separator nor children
+ *   - neither separator nor children
  */
 Comment:
   OPEN_NODE
@@ -30,11 +30,10 @@ Comment:
     separator?=WS
     /**
      * A child of this node may be one of:
-     * - another node
-     * - a sequence of non-space
-     * - a sequence of whitespace
+     * - another node; or
+     * - text sequence
      */
-    children+=(Node | NonSpace | Space)*
+    children+=(Node | Text)*
   )?
   NODE_CLOSE_NODE;
 
@@ -43,7 +42,7 @@ Comment:
  * - a name; and
  * - one of
  *   - (a separator or a node child) and remaining children; or
- *   - no separator nor children
+ *   - neither separator nor children
  */
 Record:
   OPEN_NODE
@@ -59,24 +58,29 @@ Record:
       separator?=WS |
       /**
        * A child of this node may be one of:
-       * - another node
-       * - a sequence of non-space
-       * - a sequence of whitespace
+       * - another node; or
+       * - text sequence
        */
       children+=Node
     )
-    children+=(Node | NonSpace | Space)*
+    children+=(Node | Text)*
   )?
   NODE_CLOSE_NODE;
 
 /**
- * Non-space may consist of node text or quoted text, in any order.
+ * Text may consist of whitespace or non-space, in any order.
  */
-NonSpace returns string:
-  (NODE_QUOTE | NODE_TEXT)+;
+Text returns string:
+  NonSpace | Space;
 
 /**
- * Space is a sequence of one or more whitespace.
+ * Non-space may consist of quoted or non-quoted text, in any order.
+ */
+NonSpace returns string:
+  (NODE_TEXT | NODE_QUOTE)+;
+
+/**
+ * Space consists of one or more whitespace.
  */
 Space returns string:
   WS+;
@@ -97,7 +101,7 @@ terminal OPEN_NODE: /\[/;
 terminal NODE_CLOSE_NODE: /]/;
 
 /**
- * Node text can appear only within a node and may consist of:
+ * Non-quoted text can appear only within a node and may consist of:
  * - escaped brackets; or
  * - escaped quotation marks; or
  * - non-space, except brackets and quotation marks

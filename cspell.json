@@ -3,7 +3,7 @@
   "version": "0.2",
   "language": "en",
   "dictionaries": ["typescript"],
-  "ignoreWords": ["Docml", "docml", "Langium"],
+  "ignoreWords": ["Docml", "docml", "Langium", "Gast"],
   "ignorePaths": [
     ".git",
     ".gitignore",

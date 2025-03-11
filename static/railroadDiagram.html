@@ -137,18 +137,8 @@
                       definition: [
                         {
                           type: 'NonTerminal',
-                          name: 'NonSpace​',
+                          name: 'Text​',
                           idx: 2,
-                        },
-                      ],
-                    },
-                    {
-                      type: 'Alternative',
-                      definition: [
-                        {
-                          type: 'NonTerminal',
-                          name: 'Space​',
-                          idx: 3,
                         },
                       ],
                     },
@@ -239,18 +229,8 @@
                       definition: [
                         {
                           type: 'NonTerminal',
-                          name: 'NonSpace​',
+                          name: 'Text​',
                           idx: 4,
-                        },
-                      ],
-                    },
-                    {
-                      type: 'Alternative',
-                      definition: [
-                        {
-                          type: 'NonTerminal',
-                          name: 'Space​',
-                          idx: 5,
                         },
                       ],
                     },
@@ -266,6 +246,39 @@
           label: 'NODE_CLOSE_NODE',
           idx: 3,
           pattern: ']',
+        },
+      ],
+    },
+    {
+      type: 'Rule',
+      name: 'Text​',
+      orgText: '',
+      definition: [
+        {
+          type: 'Alternation',
+          idx: 1,
+          definition: [
+            {
+              type: 'Alternative',
+              definition: [
+                {
+                  type: 'NonTerminal',
+                  name: 'NonSpace​',
+                  idx: 1,
+                },
+              ],
+            },
+            {
+              type: 'Alternative',
+              definition: [
+                {
+                  type: 'NonTerminal',
+                  name: 'Space​',
+                  idx: 2,
+                },
+              ],
+            },
+          ],
         },
       ],
     },
@@ -287,8 +300,8 @@
                   definition: [
                     {
                       type: 'Terminal',
-                      name: 'NODE_QUOTE',
-                      label: 'NODE_QUOTE',
+                      name: 'NODE_TEXT',
+                      label: 'NODE_TEXT',
                       idx: 1,
                     },
                   ],
@@ -298,8 +311,8 @@
                   definition: [
                     {
                       type: 'Terminal',
-                      name: 'NODE_TEXT',
-                      label: 'NODE_TEXT',
+                      name: 'NODE_QUOTE',
+                      label: 'NODE_QUOTE',
                       idx: 2,
                     },
                   ],

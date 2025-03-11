@@ -15,6 +15,7 @@
     "build:language": "bun build --minify --target=node --format=cjs --ignore-dce-annotations --outfile=out/language/main.cjs src/language/main.ts",
     "generate": "langium generate",
     "generate:production": "langium generate --mode=production",
+    "export:diagram": "bun run export-diagram.ts static/railroadDiagram.html",
     "vscode:prepublish": "bun run build && bun run lint",
     "bundle": "vite build",
     "serve": "ws -d dist",
