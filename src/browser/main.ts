@@ -5,7 +5,7 @@ import {
   BrowserMessageWriter,
   createConnection,
 } from 'vscode-languageserver/browser.js';
-import { createDocmlServices } from './docml-module.js';
+import { createDocmlServices } from '../language/docml-module.js';
 
 declare const self: DedicatedWorkerGlobalScope;
 

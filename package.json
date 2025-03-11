@@ -15,7 +15,7 @@
     "build:language": "bun build --minify --target=node --format=cjs --ignore-dce-annotations --outfile=out/language/main.cjs src/language/main.ts",
     "generate": "langium generate",
     "generate:production": "langium generate --mode=production",
-    "export:diagram": "bun run export-diagram.ts static/railroadDiagram.html",
+    "export:diagram": "bun run export-diagram.ts static/railroadDiagram.html && bun run prettier --write static/railroadDiagram.html",
     "prepublishOnly": "bun run generate:production && bun run build",
     "vscode:prepublish": "bun run prepublishOnly",
     "bundle": "bun run export:diagram && vite build",
@@ -24,15 +24,11 @@
     "dev:debug": "vite --debug --force"
   },
   "dependencies": {
-    "@codingame/monaco-vscode-editor-service-override": "~3.2.3",
-    "@codingame/monaco-vscode-keybindings-service-override": "~3.2.3",
     "chalk": "~5.4.1",
     "commander": "~13.1.0",
     "langium": "~3.4.0",
-    "monaco-editor": "npm:@codingame/monaco-vscode-editor-api@~3.2.3",
-    "monaco-editor-workers": "^0.45.0",
-    "monaco-editor-wrapper": "~4.0.2",
-    "monaco-languageclient": "~8.1.1",
+    "monaco-editor-wrapper": "~6.5.0",
+    "monaco-languageclient": "~9.4.1",
     "vscode-languageclient": "~9.0.1",
     "vscode-languageserver": "~9.0.1"
   },
@@ -94,6 +90,7 @@
   "icon": "logo.png",
   "main": "out/extension/main.cjs",
   "activationEvents": [],
+  "publisher": "dsogari",
   "author": {
     "name": "Diego Sogari",
     "email": "diego.sogari@gmail.com",

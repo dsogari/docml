@@ -9,7 +9,7 @@
   <body>
     <h1>Docml in Langium</h1>
     <div class="wrapper">
-      <b>Monaco-Editor + Monarch</b>
+      <b>Monaco-Editor + TextMate</b>
       <!-- Monaco Root -->
       <div id="monaco-editor-root"></div>
     </div>
@@ -20,12 +20,15 @@
     <!-- Monaco Configuration -->
     <script type="module">
       // vite is used to resolve the included TypeScript files
-      import { configureMonacoWorkers } from '../src/setupCommon';
-      import { executeClassic } from '../src/setupClassic';
+      import { MonacoEditorLanguageClientWrapper } from 'monaco-editor-wrapper';
+      import { setupTextMateConfig } from '../src/browser/setupTextMate';
 
-      configureMonacoWorkers();
+      const htmlElement = document.getElementById('monaco-editor-root');
+      const wrapperConfig = setupTextMateConfig(htmlElement);
+      const wrapper = new MonacoEditorLanguageClientWrapper();
+
       // keep a reference to a promise for when the editor is finished starting, we'll use this to setup the canvas on load
-      const startingPromise = executeClassic(document.getElementById('monaco-editor-root'));
+      const startingPromise = wrapper.initAndStart(wrapperConfig);
     </script>
   </body>
 </html>
