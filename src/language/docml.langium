@@ -104,12 +104,13 @@ terminal RIGHT_BRACKET: /]/;
  * - non-whitespace, except brackets and guillemets
  */
 terminal VISIBLE_WORD: // NOTE: remove backslash before brackets or guillemets
-  /((?<=\\)[\xab\xbb[\]]|[^\xab\xbb[\]\s])+/;
+  /(?:(?<=\\)[\xab\xbb[\]]|[^\xab\xbb[\]\s])+/;
 
 /**
  * A french quote may appear only within a node, is surrounded by guillemets and consists of:
- * - backslash followed by guillemets; or
- * - anything except guillemets
+ * - backslash followed by any character; or
+ * - anything except guillemets; or
+ * - nothing at all
  */
 terminal FRENCH_QUOTE: // NOTE: remove surrounding guillemets and backslash before guillemets
-  /\xab((?<=\\)[\xab\xbb]|[^\xab\xbb])*\xbb/;
+  /\xab(?:\\.|[^\\\xab\xbb])*\xbb/;

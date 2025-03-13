@@ -5,6 +5,8 @@ import { Document, isDocument } from '../src/language/generated/ast.js';
 /** @ignore */
 export function checkDocumentValid(document: LangiumDocument): string {
   return (
+    (document.parseResult.lexerErrors.length &&
+      `Lexer errors:\n  ${document.parseResult.lexerErrors.map((e) => e.message).join('\n  ')}`) ||
     (document.parseResult.parserErrors.length &&
       `Parser errors:\n  ${document.parseResult.parserErrors
         .map((e) => e.message)

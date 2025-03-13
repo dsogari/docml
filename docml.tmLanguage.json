@@ -1,15 +1,53 @@
 {
+  "displayName": "Docml",
   "name": "docml",
-  "scopeName": "source.docml",
-  "fileTypes": [".docml"],
   "patterns": [
+    { "include": "#node" },
     {
-      "include": "#comments"
-    },
-    {
-      "name": "keyword.control.docml",
-      "match": ""
+      "match": "[^\\s\\[]",
+      "name": "invalid.illegal.expected-node-definition.docml"
     }
   ],
-  "repository": {}
+  "repository": {
+    "node": {
+      "patterns": [{ "include": "#comment" }, { "include": "#record" }]
+    },
+    "comment": {
+      "begin": "\\[\\s",
+      "beginCaptures": { "0": { "name": "punctuation.definition.comment.begin.docml" } },
+      "end": "\\]",
+      "endCaptures": { "0": { "name": "punctuation.definition.comment.end.docml" } },
+      "name": "comment.block.docml",
+      "patterns": [{ "include": "#node" }, { "include": "#chunk" }]
+    },
+    "record": {
+      "begin": "\\[(?=\\S)",
+      "beginCaptures": { "0": { "name": "punctuation.definition.record.begin.docml" } },
+      "end": "\\]",
+      "endCaptures": { "0": { "name": "punctuation.definition.record.end.docml" } },
+      "name": "meta.structure.record.docml",
+      "patterns": [{ "include": "#name" }, { "include": "#node" }, { "include": "#chunk" }]
+    },
+    "name": {
+      "begin": "(?<=\\[)\\G",
+      "end": "(?=[\\s\\[\\]])",
+      "name": "entity.name.docml",
+      "patterns": [{ "include": "#chunk" }]
+    },
+    "chunk": {
+      "patterns": [{ "include": "#visible_word" }, { "include": "#french_quote" }]
+    },
+    "visible_word": {
+      "match": "(?:(?<=\\\\)[\\u00ab\\u00bb\\[\\]]|[^\\u00ab\\u00bb\\[\\]\\s])+"
+    },
+    "french_quote": {
+      "begin": "\\u00ab",
+      "beginCaptures": { "0": { "name": "punctuation.string.quoted.begin.docml" } },
+      "end": "\\u00bb",
+      "endCaptures": { "0": { "name": "punctuation.string.quoted.end.docml" } },
+      "name": "string.quoted.other.docml",
+      "patterns": [{ "match": "(?:\\\\.|[^\\\\\\u00ab\\u00bb])+" }]
+    }
+  },
+  "scopeName": "source.docml"
 }
