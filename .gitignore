@@ -3,7 +3,6 @@
 !.vscode/launch.json
 !.vscode/tasks.json
 dist/
+generated/
 node_modules/
 out/
-src/language/generated/
-src/syntaxes/

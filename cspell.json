@@ -13,7 +13,9 @@
     "Langium",
     "Gast",
     "publint",
-    "vscodeignore"
+    "codingame",
+    "vscodeignore",
+    "vscodetextmate"
   ],
   "ignorePaths": [
     ".git",

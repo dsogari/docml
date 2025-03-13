@@ -22,7 +22,7 @@
     ["«", "»"]
   ],
   "folding": {
-    "markers": { "start": "[", "end": "]" }
+    "markers": { "start": "\\[", "end": "]" }
   },
   "wordPattern": "((?<=\\\\)[\\xab\\xbb[\\]]|[^\\xab\\xbb[\\]\\s])+",
   "indentationRules": {

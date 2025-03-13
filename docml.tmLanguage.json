@@ -1,0 +1,15 @@
+{
+  "name": "docml",
+  "scopeName": "source.docml",
+  "fileTypes": [".docml"],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "name": "keyword.control.docml",
+      "match": ""
+    }
+  ],
+  "repository": {}
+}

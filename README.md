@@ -1,6 +1,6 @@
 # Lightweight Document Markup Language
 
-![logo](./logo.svg)
+![logo](static/logo.svg)
 
 Test it on [Langium] playground.
 

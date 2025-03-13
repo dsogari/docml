@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 import { EmptyFileSystem, createParser, LangiumParser } from 'langium';
 import { createSyntaxDiagramsCode } from 'chevrotain';
-import { createDocmlServices } from './src/language/docml-module.js';
+import { createDocmlServices } from '../src/language/docml-module.js';
 import { writeFileSync } from 'fs';
 
 class CustomLangiumParser extends LangiumParser {
