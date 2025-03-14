@@ -9,9 +9,9 @@
       "name": "Run Extension",
       "type": "extensionHost",
       "request": "launch",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/packages/docml"],
       "sourceMaps": true,
-      "outFiles": ["${workspaceFolder}/out/**/*.js"]
+      "outFiles": ["${workspaceFolder}/packages/docml/dist/**/*.js"]
     },
     {
       "name": "Attach to Language Server",
@@ -20,7 +20,10 @@
       "request": "attach",
       "skipFiles": ["<node_internals>/**"],
       "sourceMaps": true,
-      "outFiles": ["${workspaceFolder}/out/**/*.js", "${workspaceFolder}/node_modules/langium"]
+      "outFiles": [
+        "${workspaceFolder}/packages/docml/dist/**/*.js",
+        "${workspaceFolder}/node_modules/langium"
+      ]
     }
   ]
 }

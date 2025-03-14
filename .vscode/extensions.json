@@ -3,5 +3,12 @@
   // Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
 
   // List of extensions which should be recommended for users of this workspace.
-  "recommendations": ["langium.langium-vscode", "oven.bun-vscode"]
+  "recommendations": [
+    "oven.bun-vscode",
+    "langium.langium-vscode",
+    "esbenp.prettier-vscode",
+    "davidanson.vscode-markdownlint",
+    "github.vscode-pull-request-github",
+    "redcmd.tmlanguage-syntax-highlighter"
+  ]
 }

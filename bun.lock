@@ -32,7 +32,7 @@
       "devDependencies": {
         "@tsconfig/bun": "^1.0.7",
         "@types/bun": "~1.2.5",
-        "@types/vscode": "^1.98.0",
+        "@types/vscode": "~1.67.0",
         "langium-cli": "~3.4.0",
         "typescript": "~5.8.2",
       },
@@ -591,7 +591,7 @@
 
     "@types/node": ["@types/node@22.13.10", "", { "dependencies": { "undici-types": "~6.20.0" } }, "sha512-I6LPUvlRH+O6VRUqYOcMudhaIdUVWfsjnZavnsraHvpBwaEyMN29ry+0UVJhImYL16xsscu0aske3yA+uPOWfw=="],
 
-    "@types/vscode": ["@types/vscode@1.98.0", "", {}, "sha512-+KuiWhpbKBaG2egF+51KjbGWatTH5BbmWQjSLMDCssb4xF8FJnW4nGH4nuAdOOfMbpD0QlHtI+C3tPq+DoKElg=="],
+    "@types/vscode": ["@types/vscode@1.67.0", "", {}, "sha512-GH8BDf8cw9AC9080uneJfulhSa7KHSMI2s/CyKePXoGNos9J486w2V4YKoeNUqIEkW4hKoEAWp6/cXTwyGj47g=="],
 
     "@types/ws": ["@types/ws@8.5.14", "", { "dependencies": { "@types/node": "*" } }, "sha512-bd/YFLW+URhBzMXurx7lWByOu+xzU9+kb3RboOteXYDfW+tr+JZa99OyNmPINEGB/ahzKrEuc8rcv4gnpJmxTw=="],
 

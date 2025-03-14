@@ -1,8 +1,7 @@
 .vscode/*
 !.vscode/extensions.json
 !.vscode/launch.json
-!.vscode/tasks.json
 dist/
 generated/
 node_modules/
-out/
+*.vsix

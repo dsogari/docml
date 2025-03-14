@@ -2,7 +2,7 @@
 **
 
 # Whitelist
-!out/**/*.cjs
-!assets
+!dist/**/*.cjs
+!assets/logo.png
 !docml.tmLanguage.json
 !language-configuration.json

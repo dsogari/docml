@@ -30,7 +30,7 @@
   "devDependencies": {
     "@tsconfig/bun": "^1.0.7",
     "@types/bun": "~1.2.5",
-    "@types/vscode": "^1.98.0",
+    "@types/vscode": "~1.67.0",
     "langium-cli": "~3.4.0",
     "typescript": "~5.8.2"
   },
@@ -88,7 +88,7 @@
     "url": "git+https://github.com/dsogari/docml.git",
     "directory": "packages/docml"
   },
-  "homepage": "https://github.com/dsogari/docml",
+  "homepage": "https://dsogari.github.io/docml/",
   "keywords": [
     "lightweight",
     "document",

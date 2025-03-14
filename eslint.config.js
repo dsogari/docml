@@ -30,6 +30,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['**/dist', '**/out'],
+    ignores: ['**/dist'],
   },
 );

@@ -35,7 +35,7 @@
     "url": "git+https://github.com/dsogari/docml.git",
     "directory": "packages/docs"
   },
-  "homepage": "https://github.com/dsogari/docml",
+  "homepage": "https://dsogari.github.io/docml/",
   "keywords": [
     "docs"
   ],
