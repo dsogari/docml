@@ -3,7 +3,7 @@
   "version": "0.2",
   "language": "en",
   "dictionaries": ["typescript"],
-  "words": ["guillemets"],
+  "words": ["guillemets", "overlined"],
   "ignoreWords": [
     "Diego",
     "Sogari",

@@ -81,6 +81,7 @@ const wrapperConfig: WrapperConfig = {
         'editor.experimental.asyncTokenization': true,
         'editor.semanticHighlighting.enabled': true,
         'editor.wordBasedSuggestions': 'off',
+        'editor.tabSize': 2,
         'editor.stickyScroll.enabled': false, // _BugIndicatingError: Illegal value for lineNumber
         'workbench.colorTheme': 'Default Dark Modern',
       }),
