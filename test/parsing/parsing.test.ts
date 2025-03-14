@@ -270,6 +270,23 @@ describe('Parsing tests', () => {
       });
     });
 
+    test('parse record node with quoted text with escape character at the end-of-line', async () => {
+      document = await parse(`
+        [name «\\
+        »]
+      `);
+      expect(checkDocumentValid(document)).toEqual('');
+      expect(document.parseResult.value).toMatchObject({
+        nodes: [
+          {
+            name: 'name',
+            separator: true,
+            children: ['\\\n        '],
+          },
+        ],
+      });
+    });
+
     test('parse record node with a name with escaped brackets', async () => {
       document = await parse(`
         [name\\[ value\\]]

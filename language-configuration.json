@@ -21,12 +21,15 @@
     ["`", "`"],
     ["«", "»"]
   ],
-  "folding": {
-    "markers": { "start": "\\[", "end": "]" }
-  },
-  "wordPattern": "((?<=\\\\)[\\xab\\xbb[\\]]|[^\\xab\\xbb[\\]\\s])+",
-  "indentationRules": {
-    "increaseIndentPattern": "\\[[^\\]]*$",
-    "decreaseIndentPattern": "][^\\[]*$"
-  }
+  "onEnterRules": [
+    {
+      "beforeText": "\\[[^\\]]*$",
+      "afterText": "^\\s*]",
+      "action": { "indent": "indentOutdent" }
+    },
+    {
+      "beforeText": "\\[[^\\]]*$",
+      "action": { "indent": "indent" }
+    }
+  ]
 }

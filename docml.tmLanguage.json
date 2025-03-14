@@ -1,6 +1,7 @@
 {
   "displayName": "Docml",
   "name": "docml",
+  "comment": "A document consists of zero or many root nodes",
   "patterns": [
     { "include": "#node" },
     {
@@ -10,43 +11,64 @@
   ],
   "repository": {
     "node": {
+      "comment": "A node may be either a comment or a record",
       "patterns": [{ "include": "#comment" }, { "include": "#record" }]
     },
     "comment": {
+      "comment": "A comment is a node without a name, but with possible children",
       "begin": "\\[\\s",
       "beginCaptures": { "0": { "name": "punctuation.definition.comment.begin.docml" } },
       "end": "\\]",
       "endCaptures": { "0": { "name": "punctuation.definition.comment.end.docml" } },
       "name": "comment.block.docml",
-      "patterns": [{ "include": "#node" }, { "include": "#chunk" }]
+      "patterns": [{ "include": "#node" }, { "include": "#text_chunk" }]
     },
     "record": {
+      "comment": "A record is a node with a name and possible children",
       "begin": "\\[(?=\\S)",
       "beginCaptures": { "0": { "name": "punctuation.definition.record.begin.docml" } },
       "end": "\\]",
       "endCaptures": { "0": { "name": "punctuation.definition.record.end.docml" } },
       "name": "meta.structure.record.docml",
-      "patterns": [{ "include": "#name" }, { "include": "#node" }, { "include": "#chunk" }]
+      "patterns": [
+        { "include": "#record_name" },
+        { "include": "#node" },
+        { "include": "#text_chunk" }
+      ]
     },
-    "name": {
+    "record_name": {
+      "comment": "A record name appears beside the opening bracket and consists of consecutive chunks",
       "begin": "(?<=\\[)\\G",
       "end": "(?=[\\s\\[\\]])",
-      "name": "entity.name.docml",
-      "patterns": [{ "include": "#chunk" }]
+      "name": "entity.name.tag.docml",
+      "patterns": [{ "include": "#text_chunk" }]
     },
-    "chunk": {
+    "text_chunk": {
+      "comment": "A text chunk is either a visible word or a french quote",
       "patterns": [{ "include": "#visible_word" }, { "include": "#french_quote" }]
     },
     "visible_word": {
+      "comment": "A visible word consists of non-whitespace or escaped brackets/guillemets",
       "match": "(?:(?<=\\\\)[\\u00ab\\u00bb\\[\\]]|[^\\u00ab\\u00bb\\[\\]\\s])+"
     },
     "french_quote": {
+      "comment": "A french quote is a string enclosed in guillemets",
       "begin": "\\u00ab",
       "beginCaptures": { "0": { "name": "punctuation.string.quoted.begin.docml" } },
       "end": "\\u00bb",
       "endCaptures": { "0": { "name": "punctuation.string.quoted.end.docml" } },
       "name": "string.quoted.other.docml",
-      "patterns": [{ "match": "(?:\\\\.|[^\\\\\\u00ab\\u00bb])+" }]
+      "patterns": [
+        {
+          "comment": "Skip escaped guillemets inside french quotes",
+          "match": "(?:\\\\[\\u00ab\\u00bb])+"
+        },
+        {
+          "comment": "Left guillemets cannot occur inside french quotes",
+          "match": "\\u00ab",
+          "name": "invalid.illegal.quote-inside-french-quote.docml"
+        }
+      ]
     }
   },
   "scopeName": "source.docml"

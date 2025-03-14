@@ -1,7 +1,7 @@
 {
   "name": "docml",
-  "description": "Please enter a brief description here",
-  "version": "0.0.1",
+  "description": "Lightweight Document Markup Language",
+  "version": "0.1.0",
   "files": [
     "out",
     "src"

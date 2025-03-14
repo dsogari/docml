@@ -4,7 +4,7 @@
 grammar Docml
 
 /**
- * A document is a forest (of node trees).
+ * A document consists of zero or many root nodes.
  */
 entry Document:
   (Space? nodes+=Node)* Space?;
@@ -113,4 +113,4 @@ terminal VISIBLE_WORD: // NOTE: remove backslash before brackets or guillemets
  * - nothing at all
  */
 terminal FRENCH_QUOTE: // NOTE: remove surrounding guillemets and backslash before guillemets
-  /\xab(?:\\.|[^\\\xab\xbb])*\xbb/;
+  /\xab(?:\\.|[^\\\xab\xbb])*\xbb/s;
