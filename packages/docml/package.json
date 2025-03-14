@@ -1,14 +1,7 @@
 {
   "name": "docml",
   "description": "Lightweight Document Markup Language",
-  "version": "0.1.0",
-  "files": [
-    "dist/**/*.{cjs,js,ts,map}",
-    "src/**/*.ts",
-    "assets",
-    "docml.tmLanguage.json",
-    "language-configuration.json"
-  ],
+  "version": "0.1.1",
   "type": "module",
   "scripts": {
     "build": "tsc -b src && bun run build:command && bun run build:extension && bun run build:language",
@@ -18,7 +11,8 @@
     "build:language": "bun build --minify --target=node --format=cjs --ignore-dce-annotations --outfile=dist/language/main.min.cjs src/language/main.ts",
     "generate": "langium generate --mode=production",
     "prepublishOnly": "bun run generate && bun run build",
-    "vscode:prepublish": "bun run prepublishOnly"
+    "vscode:package": "vsce package --no-dependencies",
+    "vscode:publish": "bun run prepublishOnly && vsce publish --no-dependencies"
   },
   "dependencies": {
     "chalk": "~5.4.1",
@@ -31,6 +25,7 @@
     "@tsconfig/bun": "^1.0.7",
     "@types/bun": "~1.2.5",
     "@types/vscode": "~1.67.0",
+    "@vscode/vsce": "^3.2.2",
     "langium-cli": "~3.4.0",
     "typescript": "~5.8.2"
   },
@@ -60,6 +55,10 @@
         "extensions": [
           ".docml"
         ],
+        "icon": {
+          "light": "assets/file-icon-light.png",
+          "dark": "assets/file-icon-dark.png"
+        },
         "configuration": "language-configuration.json"
       }
     ],
@@ -71,7 +70,7 @@
       }
     ]
   },
-  "icon": "assets/logo.png",
+  "icon": "assets/logo-square.png",
   "main": "dist/extension/main.min.cjs",
   "activationEvents": [],
   "publisher": "dsogari",

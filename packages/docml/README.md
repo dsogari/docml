@@ -1,8 +1,8 @@
 # Lightweight Document Markup Language
 
-![logo](assets/logo.svg)
+![logo](assets/logo-wide.png)
 
-Test it on the [playground].
+Docml is a [lightweight] markup language inspired by [PDML]. Give it a try on the [playground].
 
 ## Document structure
 
@@ -78,16 +78,6 @@ Single-character tag names are reserved for text markup. Below is a list of reco
 
 Their uppercase counterparts are not yet defined, although they may refer to text coloring or interactive elements. (This also depends on language adoption and is open to community feedback.)
 
-## Syntax Diagrams
-
-![Document](assets/DocmlDocument.svg)
-![Node](assets/DocmlNode.svg)
-![Comment](assets/DocmlComment.svg)
-![Record](assets/DocmlRecord.svg)
-![Text](assets/DocmlText.svg)
-![Chunk](assets/DocmlChunk.svg)
-![Space](assets/DocmlSpace.svg)
-
 ## Licenses
 
 [MIT License](LICENSE).
@@ -98,6 +88,8 @@ For third-party licenses, refer to the upstream project. Here are the most impor
 - [Langium] &mdash; MIT License &mdash; Copyright 2021 TypeFox GmbH
 - [VSCode] &mdash; MIT License &mdash; Copyright (c) Microsoft Corporation
 
+[lightweight]: https://en.wikipedia.org/wiki/Lightweight_markup_language
+[PDML]: https://pdml-lang.dev/
 [playground]: https://dsogari.github.io/docml/
 [Chevrotain]: https://github.com/Chevrotain/chevrotain
 [Langium]: https://github.com/eclipse-langium/langium

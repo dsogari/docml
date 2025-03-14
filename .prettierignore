@@ -1,7 +1,9 @@
 .husky
 .gitignore
+.npmignore
 .prettierignore
 .vscodeignore
+*.docml
 *.langium
 *.lock
 *.png

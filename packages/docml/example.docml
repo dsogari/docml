@@ -1,0 +1,9 @@
+[ This is an example file ]
+[p Here we have:
+  [l a node with «quotes and [brackets]»]
+  [a«node with quoted»name]
+  [ a comment inside a node]
+  [a node
+    with text
+  ]
+]

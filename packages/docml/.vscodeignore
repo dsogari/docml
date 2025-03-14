@@ -1,8 +1,4 @@
-# Ignore everything
-**
-
-# Whitelist
-!dist/**/*.cjs
-!assets/logo.png
-!docml.tmLanguage.json
-!language-configuration.json
+**/*.{js,map,ts,tsbuildinfo,svg,docml,langium,vsix}
+**/tsconfig.*
+.npmignore
+langium-config.json

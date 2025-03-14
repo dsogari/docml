@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+  <style>
+    text {
+      font-family: &quot;Lucida Console&quot;, Monaco, monospace;
+      fill: currentColor;
+      filter: invert(1);
+    }
+  </style>
+  <text y="15">[]</text>
+</svg>

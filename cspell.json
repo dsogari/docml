@@ -4,10 +4,11 @@
   "language": "en",
   "dictionaries": ["typescript"],
   "words": ["guillemets", "overlined"],
-  "ignoreWords": ["Diego", "Sogari", "Docml", "Langium"],
+  "ignoreWords": ["Diego", "Sogari", "Docml", "Langium", "PDML"],
   "ignorePaths": [
     ".git",
     ".gitignore",
+    ".npmignore",
     ".prettierignore",
     ".vscodeignore",
     "*.json",
