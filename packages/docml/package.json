@@ -16,9 +16,8 @@
     "build:command": "bun build --minify --target=node --outfile=dist/command/main.min.js src/command/main.ts",
     "build:extension": "bun build --minify --target=node --format=cjs --external=vscode --outfile=dist/extension/main.min.cjs src/extension/main.ts",
     "build:language": "bun build --minify --target=node --format=cjs --ignore-dce-annotations --outfile=dist/language/main.min.cjs src/language/main.ts",
-    "generate": "langium generate",
-    "generate:production": "langium generate --mode=production",
-    "prepublishOnly": "bun run generate:production && bun run build",
+    "generate": "langium generate --mode=production",
+    "prepublishOnly": "bun run generate && bun run build",
     "vscode:prepublish": "bun run prepublishOnly"
   },
   "dependencies": {

@@ -7,6 +7,7 @@
   ],
   "type": "module",
   "scripts": {
+    "prepublishOnly": "bun run build",
     "build": "vite build",
     "serve": "ws -d dist",
     "dev": "vite",

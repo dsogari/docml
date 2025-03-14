@@ -1,6 +1,6 @@
 import { type LangiumDocument } from 'langium';
 import { type Diagnostic } from 'vscode-languageserver-types';
-import { Document, isDocument } from '../src/language/generated/ast.js';
+import { DocmlDocument, isDocmlDocument } from '../src/language/generated/ast.js';
 
 /** @ignore */
 export function checkDocumentValid(document: LangiumDocument): string {
@@ -12,8 +12,8 @@ export function checkDocumentValid(document: LangiumDocument): string {
         .map((e) => e.message)
         .join('\n  ')}`) ||
     (document.parseResult.value === undefined && `ParseResult is 'undefined'.`) ||
-    (!isDocument(document.parseResult.value) &&
-      `Root AST object is a ${document.parseResult.value.$type}, expected a '${Document}'.`) ||
+    (!isDocmlDocument(document.parseResult.value) &&
+      `Root AST object is a ${document.parseResult.value.$type}, expected a '${DocmlDocument}'.`) ||
     ''
   );
 }

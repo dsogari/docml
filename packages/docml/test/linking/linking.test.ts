@@ -2,16 +2,16 @@ import { afterEach, beforeAll, describe, expect, test } from 'bun:test';
 import { EmptyFileSystem, type LangiumDocument } from 'langium';
 import { clearDocuments, parseHelper } from 'langium/test';
 import { createDocmlServices } from '../../src/language/docml-module.js';
-import { type Document } from '../../src/language/generated/ast.js';
+import { type DocmlDocument } from '../../src/language/generated/ast.js';
 import { checkDocumentValid } from '../common.js';
 
 let services: ReturnType<typeof createDocmlServices>;
-let parse: ReturnType<typeof parseHelper<Document>>;
-let document: LangiumDocument<Document> | undefined;
+let parse: ReturnType<typeof parseHelper<DocmlDocument>>;
+let document: LangiumDocument<DocmlDocument> | undefined;
 
 beforeAll(async () => {
   services = createDocmlServices(EmptyFileSystem);
-  parse = parseHelper<Document>(services.Docml);
+  parse = parseHelper<DocmlDocument>(services.Docml);
 
   // activate the following if your linking test requires elements from a built-in library, for example
   // await services.shared.workspace.WorkspaceManager.initializeWorkspace([]);
