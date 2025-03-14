@@ -2,19 +2,22 @@
 changed_files="$(git diff --cached --name-only)"
 
 if echo "$changed_files" | grep -Eq '\.langium$'; then
-  bun run generate
+  bun run --cwd packages/docml generate
 fi
 if echo "$changed_files" | grep -Eq '^(src|test)\/'; then
-  bun test --coverage
+  bun test --cwd packages/docml --coverage
+fi
+if echo "$changed_files" | grep -Eq '^src\/browser\/'; then
+  bun run --cwd packages/docml build:browser
 fi
 if echo "$changed_files" | grep -Eq '^src\/command\/'; then
-  bun run build:command
+  bun run --cwd packages/docml build:command
 fi
 if echo "$changed_files" | grep -Eq '^src\/extension\/'; then
-  bun run build:extension
+  bun run --cwd packages/docml build:extension
 fi
 if echo "$changed_files" | grep -Eq '^src\/language\/'; then
-  bun run build:language
+  bun run --cwd packages/docml build:language
 fi
 
 bun run lint-staged

@@ -1,0 +1,108 @@
+{
+  "name": "docml",
+  "description": "Lightweight Document Markup Language",
+  "version": "0.1.0",
+  "files": [
+    "dist/**/*.{cjs,js,ts,map}",
+    "src/**/*.ts",
+    "assets",
+    "docml.tmLanguage.json",
+    "language-configuration.json"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b src && bun run build:command && bun run build:extension && bun run build:language",
+    "build:browser": "bun build --minify --target=browser --outfile=dist/browser/main.min.js src/browser/main.ts",
+    "build:command": "bun build --minify --target=node --outfile=dist/command/main.min.js src/command/main.ts",
+    "build:extension": "bun build --minify --target=node --format=cjs --external=vscode --outfile=dist/extension/main.min.cjs src/extension/main.ts",
+    "build:language": "bun build --minify --target=node --format=cjs --ignore-dce-annotations --outfile=dist/language/main.min.cjs src/language/main.ts",
+    "generate": "langium generate",
+    "generate:production": "langium generate --mode=production",
+    "prepublishOnly": "bun run generate:production && bun run build",
+    "vscode:prepublish": "bun run prepublishOnly"
+  },
+  "dependencies": {
+    "chalk": "~5.4.1",
+    "commander": "~13.1.0",
+    "langium": "~3.4.0",
+    "vscode-languageclient": "~9.0.1",
+    "vscode-languageserver": "~9.0.1"
+  },
+  "devDependencies": {
+    "@tsconfig/bun": "^1.0.7",
+    "@types/bun": "~1.2.5",
+    "@types/vscode": "^1.98.0",
+    "langium-cli": "~3.4.0",
+    "typescript": "~5.8.2"
+  },
+  "volta": {
+    "bun": "1.2.5"
+  },
+  "displayName": "Docml",
+  "galleryBanner": {
+    "color": "#222222",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.67.0",
+    "node": ">=18.0.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "docml",
+        "aliases": [
+          "Docml",
+          "docml"
+        ],
+        "extensions": [
+          ".docml"
+        ],
+        "configuration": "language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "docml",
+        "scopeName": "source.docml",
+        "path": "docml.tmLanguage.json"
+      }
+    ]
+  },
+  "icon": "assets/logo.png",
+  "main": "dist/extension/main.min.cjs",
+  "activationEvents": [],
+  "publisher": "dsogari",
+  "author": {
+    "name": "Diego Sogari",
+    "email": "diego.sogari@gmail.com",
+    "url": "https://github.com/dsogari"
+  },
+  "bugs": {
+    "url": "https://github.com/dsogari/docml/issues",
+    "email": "diego.sogari@gmail.com"
+  },
+  "repository": {
+    "url": "git+https://github.com/dsogari/docml.git",
+    "directory": "packages/docml"
+  },
+  "homepage": "https://github.com/dsogari/docml",
+  "keywords": [
+    "lightweight",
+    "document",
+    "markup",
+    "language"
+  ],
+  "license": "MIT",
+  "bin": {
+    "docml": "dist/command/main.min.js"
+  },
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "default": "./dist/index.js"
+  },
+  "types": "./dist/index.d.ts"
+}

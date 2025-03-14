@@ -1,116 +1,28 @@
 {
-  "name": "docml",
-  "description": "Lightweight Document Markup Language",
+  "name": "monorepo",
   "version": "0.1.0",
-  "files": [
-    "out",
-    "src"
-  ],
   "type": "module",
-  "scripts": {
-    "prepare": "husky",
-    "build": "bun run build:command && bun run build:extension && bun run build:language",
-    "build:command": "bun build --minify --target=node --outfile=out/command/main.js src/command/main.ts",
-    "build:extension": "bun build --minify --target=node --format=cjs --external=vscode --outfile=out/extension/main.cjs src/extension/main.ts",
-    "build:language": "bun build --minify --target=node --format=cjs --ignore-dce-annotations --outfile=out/language/main.cjs src/language/main.ts",
-    "generate": "langium generate",
-    "generate:production": "langium generate --mode=production",
-    "export:diagram": "bun run scripts/export-diagram.ts static/railroadDiagram.html && bun run prettier --write static/railroadDiagram.html",
-    "prepublishOnly": "bun run generate:production && bun run build",
-    "vscode:prepublish": "bun run prepublishOnly",
-    "bundle": "bun run export:diagram && vite build",
-    "serve": "ws -d dist",
-    "dev": "vite",
-    "dev:debug": "vite --debug --force"
-  },
-  "dependencies": {
-    "chalk": "~5.4.1",
-    "commander": "~13.1.0",
-    "langium": "~3.4.0",
-    "monaco-editor-wrapper": "~6.5.0",
-    "vscode-languageclient": "~9.0.1",
-    "vscode-languageserver": "~9.0.1"
-  },
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/docml",
+    "packages/docs"
+  ],
   "devDependencies": {
     "@cspell/eslint-plugin": "^8.17.5",
-    "@tsconfig/bun": "^1.0.7",
-    "@types/bun": "~1.2.5",
-    "@types/vscode": "^1.98.0",
     "cspell": "^8.17.5",
     "eslint": "~9.22.0",
     "eslint-plugin-jsdoc": "^50.6.6",
     "husky": "^9.1.7",
-    "langium-cli": "~3.4.0",
     "lint-staged": "^15.5.0",
-    "local-web-server": "^5.4.0",
     "prettier": "^3.5.3",
     "publint": "^0.3.9",
     "typescript": "~5.8.2",
-    "typescript-eslint": "^8.26.1",
-    "vite": "~6.2.1"
+    "typescript-eslint": "^8.26.1"
   },
-  "volta": {
-    "bun": "1.2.5"
+  "scripts": {
+    "prepare": "husky"
   },
-  "displayName": "Docml",
-  "galleryBanner": {
-    "color": "#222222",
-    "theme": "dark"
-  },
-  "engines": {
-    "vscode": "^1.67.0",
-    "node": ">=18.0.0"
-  },
-  "categories": [
-    "Programming Languages"
-  ],
-  "contributes": {
-    "languages": [
-      {
-        "id": "docml",
-        "aliases": [
-          "Docml",
-          "docml"
-        ],
-        "extensions": [
-          ".docml"
-        ],
-        "configuration": "language-configuration.json"
-      }
-    ],
-    "grammars": [
-      {
-        "language": "docml",
-        "scopeName": "source.docml",
-        "path": "docml.tmLanguage.json"
-      }
-    ]
-  },
-  "icon": "static/logo.png",
-  "main": "out/extension/main.cjs",
-  "activationEvents": [],
-  "publisher": "dsogari",
-  "author": {
-    "name": "Diego Sogari",
-    "email": "diego.sogari@gmail.com",
-    "url": "https://github.com/dsogari"
-  },
-  "bugs": {
-    "url": "https://github.com/dsogari/docml/issues",
-    "email": "diego.sogari@gmail.com"
-  },
-  "repository": {
-    "url": "git+https://github.com/dsogari/docml.git"
-  },
-  "homepage": "https://github.com/dsogari/docml",
-  "keywords": [
-    "lightweight",
-    "document",
-    "markup",
-    "language"
-  ],
-  "license": "MIT",
-  "bin": "out/command/main.js",
   "prettier": {
     "printWidth": 100,
     "singleQuote": true

@@ -1,0 +1,15 @@
+{
+  "projectName": "Docml",
+  "languages": [
+    {
+      "id": "docml",
+      "grammar": "docml.langium",
+      "fileExtensions": [".docml"],
+      "railroad": {
+        "out": "assets",
+        "mode": "svg"
+      }
+    }
+  ],
+  "out": "src/language/generated"
+}

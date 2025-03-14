@@ -3,7 +3,6 @@
 
 # Whitelist
 !out/**/*.cjs
-!static/logo.png
+!assets
 !docml.tmLanguage.json
 !language-configuration.json
-!README.md

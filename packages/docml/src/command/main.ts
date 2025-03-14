@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-import { type Document } from '../language/generated/ast.js';
+import { type DocmlDocument } from '../language/generated/ast.js';
 import chalk from 'chalk';
 import { Command } from 'commander';
 import { DocmlLanguageMetaData } from '../language/generated/module.js';
@@ -17,7 +17,7 @@ const packageContent = await fs.readFile(packagePath, 'utf-8');
 
 export const generateAction = async (fileName: string, opts: GenerateOptions): Promise<void> => {
   const services = createDocmlServices(NodeFileSystem).Docml;
-  const model = await extractAstNode<Document>(fileName, services);
+  const model = await extractAstNode<DocmlDocument>(fileName, services);
   const generatedFilePath = generateJavaScript(model, fileName, opts.destination);
   console.log(chalk.green(`JavaScript code generated successfully: ${generatedFilePath}`));
 };

@@ -7,8 +7,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: path.resolve(__dirname, 'index.html'),
-        monacoTextMate: path.resolve(__dirname, 'static/monacoTextMate.html'),
-        railroadDiagram: path.resolve(__dirname, 'static/railroadDiagram.html'),
       },
     },
   },

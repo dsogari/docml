@@ -6,21 +6,21 @@ grammar Docml
 /**
  * A document consists of zero or many root nodes.
  */
-entry Document:
-  (Space? nodes+=Node)* Space?;
+entry DocmlDocument:
+  (DocmlSpace? nodes+=DocmlNode)* DocmlSpace?;
 
 /**
  * A node may be either a comment or a record.
  */
-Node:
-  Comment | Record;
+DocmlNode:
+  DocmlComment | DocmlRecord;
 
 /**
  * A comment is a node with:
  * - a separator and possible children; or
  * - neither separator nor children
  */
-Comment:
+DocmlComment:
   LEFT_BRACKET
   (
     /**
@@ -30,7 +30,7 @@ Comment:
     /**
      * A child may be either a node or a text sequence.
      */
-    children+=(Node | Text)*
+    children+=(DocmlNode | DocmlText)*
   )?
   RIGHT_BRACKET;
 
@@ -40,12 +40,12 @@ Comment:
  *   - (either a separator or a node child) and possible remaining children; or
  *   - neither separator nor children
  */
-Record:
+DocmlRecord:
   LEFT_BRACKET
   /**
    * The node name.
    */
-  name=Chunk
+  name=DocmlChunk
   (
     (
       /**
@@ -55,31 +55,31 @@ Record:
       /**
        * The first child will be a node if there is no separator.
        */
-      children+=Node
+      children+=DocmlNode
     )
     /**
      * A child may be either a node or a text sequence.
      */
-    children+=(Node | Text)*
+    children+=(DocmlNode | DocmlText)*
   )?
   RIGHT_BRACKET;
 
 /**
  * A text sequence may be either chunk or space.
  */
-Text returns string:
-  Chunk | Space;
+DocmlText returns string:
+  DocmlChunk | DocmlSpace;
 
 /**
  * A chunk consists of visible words or french quotes, in any order.
  */
-Chunk returns string:
+DocmlChunk returns string:
   (VISIBLE_WORD | FRENCH_QUOTE)+;
 
 /**
  * A space consists of one or more whitespace characters.
  */
-Space returns string:
+DocmlSpace returns string:
   SINGLE_SPACE+;
 
 /**

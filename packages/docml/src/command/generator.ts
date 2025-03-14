@@ -1,4 +1,4 @@
-import { type Document } from '../language/generated/ast.js';
+import { type DocmlDocument } from '../language/generated/ast.js';
 import { expandToNode, toString } from 'langium/generate';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -6,7 +6,7 @@ import { extractDestinationAndName } from './cli-util.js';
 
 /** @ignore */
 export function generateJavaScript(
-  doc: Document,
+  doc: DocmlDocument,
   filePath: string,
   destination: string | undefined,
 ): string {
