@@ -1,4 +1,0 @@
-**/*.{js,map,ts,tsbuildinfo,svg,docml,langium,vsix}
-**/tsconfig.*
-.npmignore
-langium-config.json

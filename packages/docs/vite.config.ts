@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import * as path from 'path';
 
 export default defineConfig({
-  base: 'docml',
   build: {
     target: 'esnext',
     rollupOptions: {

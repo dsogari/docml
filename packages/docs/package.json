@@ -1,19 +1,20 @@
 {
   "name": "@docml/docs",
   "description": "Documentation for Docml",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "files": [
     "dist"
   ],
   "type": "module",
   "scripts": {
     "prepublishOnly": "bun run build",
-    "build": "vite build",
-    "serve": "ws -d dist",
+    "build": "vite build --base=/docml",
+    "serve": "ln -snf \"`pwd`/dist\" dist/docml && ws -d dist",
     "dev": "vite",
     "dev:debug": "vite --debug --force"
   },
   "devDependencies": {
+    "@docml/language": "workspace:*",
     "docml": "workspace:*",
     "local-web-server": "^5.4.0",
     "monaco-editor-wrapper": "~6.5.0",

@@ -1,32 +1,35 @@
 {
   "name": "docml",
-  "description": "Lightweight Document Markup Language",
-  "version": "0.1.1",
+  "description": "VSCode extension and command-line interface for Docml",
+  "version": "0.1.2",
   "type": "module",
+  "files": [
+    "assets",
+    "dist/**/*.{cjs,js,ts,map}",
+    "src/**/*.ts",
+    "docml.tmLanguage.json",
+    "language-configuration.json",
+    "LICENSE"
+  ],
   "scripts": {
-    "build": "tsc -b src && bun run build:command && bun run build:extension && bun run build:language",
-    "build:browser": "bun build --minify --target=browser --outfile=dist/browser/main.min.js src/browser/main.ts",
-    "build:command": "bun build --minify --target=node --outfile=dist/command/main.min.js src/command/main.ts",
+    "build": "tsc -b src && bun run build:extension && bun run build:server",
     "build:extension": "bun build --minify --target=node --format=cjs --external=vscode --outfile=dist/extension/main.min.cjs src/extension/main.ts",
-    "build:language": "bun build --minify --target=node --format=cjs --ignore-dce-annotations --outfile=dist/language/main.min.cjs src/language/main.ts",
-    "generate": "langium generate --mode=production",
-    "prepublishOnly": "bun run generate && bun run build",
+    "build:server": "bun build --minify --target=node --format=cjs --ignore-dce-annotations --outfile=dist/server/main.min.cjs src/server/main.ts",
+    "prepublishOnly": "bun run build",
     "vscode:package": "vsce package --no-dependencies",
-    "vscode:publish": "bun run prepublishOnly && vsce publish --no-dependencies"
+    "vscode:publish": "vsce publish --no-dependencies"
   },
   "dependencies": {
+    "@docml/language": "workspace:*",
     "chalk": "~5.4.1",
     "commander": "~13.1.0",
-    "langium": "~3.4.0",
-    "vscode-languageclient": "~9.0.1",
-    "vscode-languageserver": "~9.0.1"
+    "vscode-languageclient": "~9.0.1"
   },
   "devDependencies": {
     "@tsconfig/bun": "^1.0.7",
     "@types/bun": "~1.2.5",
     "@types/vscode": "~1.67.0",
     "@vscode/vsce": "^3.2.2",
-    "langium-cli": "~3.4.0",
     "typescript": "~5.8.2"
   },
   "volta": {
@@ -89,18 +92,18 @@
   },
   "homepage": "https://dsogari.github.io/docml/",
   "keywords": [
-    "lightweight",
-    "document",
-    "markup",
-    "language"
+    "command",
+    "line",
+    "extension",
+    "vscode"
   ],
   "license": "MIT",
   "bin": {
-    "docml": "dist/command/main.min.js"
+    "docml": "dist/command/main.js"
   },
   "exports": {
-    "types": "./dist/index.d.ts",
-    "default": "./dist/index.js"
-  },
-  "types": "./dist/index.d.ts"
+    ".": null,
+    "./tmLanguage": "./docml.tmLanguage.json",
+    "./langConfig": "./language-configuration.json"
+  }
 }

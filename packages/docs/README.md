@@ -1,6 +1,6 @@
 # docml docs
 
-Documentation for [docml](https://github.com/dsogari/docml).
+Documentation for [docml].
 
 ## Usage
 
@@ -14,3 +14,5 @@ bun install   # install dependencies
 bun run dev   # serve docs locally
 bun publish   # publish to npm registry
 ```
+
+[docml]: https://www.npmjs.com/package/docml

@@ -5,11 +5,14 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "packages/language",
     "packages/docml",
     "packages/docs"
   ],
   "devDependencies": {
     "@cspell/eslint-plugin": "^8.17.5",
+    "@eslint/json": "^0.11.0",
+    "@eslint/markdown": "^6.3.0",
     "cspell": "^8.17.5",
     "eslint": "~9.22.0",
     "eslint-plugin-jsdoc": "^50.6.6",

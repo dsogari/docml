@@ -1,9 +1,7 @@
 #!/usr/bin/env bun
-import { type DocmlDocument } from '../language/generated/ast.js';
+import { type DocmlDocument, DocmlLanguageMetaData, createDocmlServices } from '@docml/language';
 import chalk from 'chalk';
 import { Command } from 'commander';
-import { DocmlLanguageMetaData } from '../language/generated/module.js';
-import { createDocmlServices } from '../language/docml-module.js';
 import { extractAstNode } from './cli-util.js';
 import { generateJavaScript } from './generator.js';
 import { NodeFileSystem } from 'langium/node';

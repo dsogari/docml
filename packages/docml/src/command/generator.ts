@@ -1,4 +1,4 @@
-import { type DocmlDocument } from '../language/generated/ast.js';
+import { type DocmlDocument } from '@docml/language';
 import { expandToNode, toString } from 'langium/generate';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
