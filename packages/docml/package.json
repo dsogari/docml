@@ -1,12 +1,10 @@
 {
   "name": "docml",
   "description": "Lightweight Document Markup Language",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "scripts": {
-    "build": "tsc -b src && bun run build:command && bun run build:extension && bun run build:language",
-    "build:browser": "bun build --minify --target=browser --outfile=dist/browser/main.min.js src/browser/main.ts",
-    "build:command": "bun build --minify --target=node --outfile=dist/command/main.min.js src/command/main.ts",
+    "build": "tsc -b src && bun run build:extension && bun run build:language",
     "build:extension": "bun build --minify --target=node --format=cjs --external=vscode --outfile=dist/extension/main.min.cjs src/extension/main.ts",
     "build:language": "bun build --minify --target=node --format=cjs --ignore-dce-annotations --outfile=dist/language/main.min.cjs src/language/main.ts",
     "generate": "langium generate --mode=production",
@@ -96,11 +94,19 @@
   ],
   "license": "MIT",
   "bin": {
-    "docml": "dist/command/main.min.js"
+    "docml": "dist/command/main.js"
   },
   "exports": {
-    "types": "./dist/index.d.ts",
-    "default": "./dist/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser/main.d.ts",
+      "default": "./dist/browser/main.js"
+    },
+    "./tmLanguage": "./docml.tmLanguage.json",
+    "./langConfig": "./language-configuration.json"
   },
   "types": "./dist/index.d.ts"
 }

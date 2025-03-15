@@ -2,7 +2,6 @@ import type { ExtensionConfig, LanguageClientConfig, WrapperConfig } from 'monac
 import { configureDefaultWorkerFactory } from 'monaco-editor-wrapper/workers/workerLoaders';
 import { MonacoEditorLanguageClientWrapper } from 'monaco-editor-wrapper';
 import { LogLevel } from '@codingame/monaco-vscode-api';
-import { paths } from 'docml';
 
 /**
  * Configures the Monaco editor for use with TextMate.
@@ -26,7 +25,7 @@ const languageClientConfig: LanguageClientConfig = {
   connection: {
     options: {
       $type: 'WorkerDirect',
-      worker: new Worker(paths.webWorker, {
+      worker: new Worker(new URL('docml/browser', import.meta.url), {
         type: 'module',
         name: 'Docml Language Server',
       }),
@@ -64,8 +63,8 @@ const extensionConfig: ExtensionConfig = {
     },
   },
   filesOrContents: new Map([
-    ['/docml.tmLanguage.json', paths.tmLanguage],
-    ['/language-configuration.json', paths.langConfig],
+    ['/docml.tmLanguage.json', new URL('docml/tmLanguage', import.meta.url)],
+    ['/language-configuration.json', new URL('docml/langConfig', import.meta.url)],
   ]),
 };
 

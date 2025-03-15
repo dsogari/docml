@@ -4,7 +4,17 @@
   "language": "en",
   "dictionaries": ["typescript"],
   "words": ["guillemets", "overlined"],
-  "ignoreWords": ["Diego", "Sogari", "Docml", "Langium", "PDML"],
+  "ignoreWords": [
+    "Diego",
+    "Sogari",
+    "Docml",
+    "Langium",
+    "PDML",
+    "publint",
+    "dsogari",
+    "codingame",
+    "vscodetextmate"
+  ],
   "ignorePaths": [
     ".git",
     ".gitignore",

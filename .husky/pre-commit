@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
-changed_files="$(git diff --cached --name-only)"
+bun run lint-staged
 
+changed_files="$(git diff --cached --name-only)"
 if echo "$changed_files" | grep -Eq '\.langium$'; then
   bun run --cwd packages/docml generate
 fi
@@ -13,5 +14,3 @@ fi
 if echo "$changed_files" | grep -Eq '^packages\/docs\/'; then
   bun run --cwd packages/docs build
 fi
-
-bun run lint-staged

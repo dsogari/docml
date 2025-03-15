@@ -1,5 +1,5 @@
 test/
-**/*.{tsbuildinfo,docml,langium,vsix}
+**/*.{tsbuildinfo,docml,langium,local,vsix}
 tsconfig.*
 .vscodeignore
 langium-config.json
