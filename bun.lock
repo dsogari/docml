@@ -18,34 +18,47 @@
     },
     "packages/docml": {
       "name": "docml",
-      "version": "0.1.0",
+      "version": "0.1.2",
       "bin": {
-        "docml": "dist/command/main.min.js",
+        "docml": "dist/main.js",
       },
       "dependencies": {
+        "@docml/language": "workspace:*",
         "chalk": "~5.4.1",
         "commander": "~13.1.0",
-        "langium": "~3.4.0",
         "vscode-languageclient": "~9.0.1",
-        "vscode-languageserver": "~9.0.1",
       },
       "devDependencies": {
         "@tsconfig/bun": "^1.0.7",
         "@types/bun": "~1.2.5",
         "@types/vscode": "~1.67.0",
         "@vscode/vsce": "^3.2.2",
-        "langium-cli": "~3.4.0",
         "typescript": "~5.8.2",
       },
     },
     "packages/docs": {
       "name": "@docml/docs",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "devDependencies": {
+        "@docml/language": "workspace:*",
         "docml": "workspace:*",
         "local-web-server": "^5.4.0",
         "monaco-editor-wrapper": "~6.5.0",
         "vite": "~6.2.1",
+      },
+    },
+    "packages/language": {
+      "name": "@docml/language",
+      "version": "0.1.1",
+      "dependencies": {
+        "langium": "~3.4.0",
+        "vscode-languageserver": "~9.0.1",
+      },
+      "devDependencies": {
+        "@tsconfig/bun": "^1.0.7",
+        "@types/bun": "~1.2.5",
+        "langium-cli": "~3.4.0",
+        "typescript": "~5.8.2",
       },
     },
   },
@@ -471,6 +484,8 @@
     "@cspell/url": ["@cspell/url@8.17.5", "", {}, "sha512-GNQqST7zI85dAFVyao6oiTeg5rNhO9FH1ZAd397qQhvwfxrrniNfuoewu8gPXyP0R4XBiiaCwhBL7w9S/F5guw=="],
 
     "@docml/docs": ["@docml/docs@workspace:packages/docs"],
+
+    "@docml/language": ["@docml/language@workspace:packages/language"],
 
     "@es-joy/jsdoccomment": ["@es-joy/jsdoccomment@0.49.0", "", { "dependencies": { "comment-parser": "1.4.1", "esquery": "^1.6.0", "jsdoc-type-pratt-parser": "~4.1.0" } }, "sha512-xjZTSFgECpb9Ohuk5yMX5RhUEbfeQcuOp8IF60e+wyzWEF0M5xeSgqsfLtvPEX8BIyOX9saZqzuGPmZ8oWc+5Q=="],
 

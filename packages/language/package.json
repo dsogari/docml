@@ -1,0 +1,67 @@
+{
+  "name": "@docml/language",
+  "description": "Lightweight Document Markup Language",
+  "version": "0.1.1",
+  "type": "module",
+  "files": [
+    "assets",
+    "dist/**/*.{js,ts,map}",
+    "src/**/*.ts",
+    "docml.langium",
+    "example.docml"
+  ],
+  "scripts": {
+    "build": "tsc -b src",
+    "generate": "langium generate --mode=production",
+    "prepublishOnly": "bun run generate && bun run build"
+  },
+  "dependencies": {
+    "langium": "~3.4.0",
+    "vscode-languageserver": "~9.0.1"
+  },
+  "devDependencies": {
+    "@tsconfig/bun": "^1.0.7",
+    "@types/bun": "~1.2.5",
+    "langium-cli": "~3.4.0",
+    "typescript": "~5.8.2"
+  },
+  "volta": {
+    "bun": "1.2.5"
+  },
+  "author": {
+    "name": "Diego Sogari",
+    "email": "diego.sogari@gmail.com",
+    "url": "https://github.com/dsogari"
+  },
+  "bugs": {
+    "url": "https://github.com/dsogari/docml/issues",
+    "email": "diego.sogari@gmail.com"
+  },
+  "repository": {
+    "url": "git+https://github.com/dsogari/docml.git",
+    "directory": "packages/language"
+  },
+  "homepage": "https://dsogari.github.io/docml/",
+  "keywords": [
+    "lightweight",
+    "document",
+    "markup",
+    "language"
+  ],
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser/main.d.ts",
+      "default": "./dist/browser/main.js"
+    },
+    "./server": {
+      "types": "./dist/server/main.d.ts",
+      "default": "./dist/server/main.js"
+    }
+  },
+  "types": "./dist/index.d.ts"
+}

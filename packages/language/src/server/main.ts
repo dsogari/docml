@@ -1,7 +1,7 @@
 import { startLanguageServer } from 'langium/lsp';
 import { NodeFileSystem } from 'langium/node';
 import { createConnection, ProposedFeatures } from 'vscode-languageserver/node.js';
-import { createDocmlServices } from './docml-module.js';
+import { createDocmlServices } from '../language/docml-module.js';
 
 // Create a connection to the client
 const connection = createConnection(ProposedFeatures.all);

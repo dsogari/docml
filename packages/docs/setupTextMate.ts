@@ -25,7 +25,7 @@ const languageClientConfig: LanguageClientConfig = {
   connection: {
     options: {
       $type: 'WorkerDirect',
-      worker: new Worker(new URL('docml/browser', import.meta.url), {
+      worker: new Worker(new URL('@docml/language/browser', import.meta.url), {
         type: 'module',
         name: 'Docml Language Server',
       }),
