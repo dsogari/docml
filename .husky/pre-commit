@@ -6,7 +6,7 @@ changed_files="$(git diff --cached --name-only)"
 if echo "$changed_files" | grep -Eq '\.langium$'; then
   bun run --cwd packages/language generate
 fi
-if echo "$changed_files" | grep -Eq '(src|test)\/'; then
+if echo "$changed_files" | grep -Eq '(src\/|test\/|\.langium$)'; then
   bun test --coverage
 fi
 if echo "$changed_files" | grep -Eq '^packages\/language\/'; then

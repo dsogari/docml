@@ -9,6 +9,6 @@
     "esbenp.prettier-vscode",
     "davidanson.vscode-markdownlint",
     "github.vscode-pull-request-github",
-    "redcmd.tmlanguage-syntax-highlighter"
-  ]
+    "redcmd.tmlanguage-syntax-highlighter",
+  ],
 }

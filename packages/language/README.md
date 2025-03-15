@@ -37,6 +37,8 @@ Note that you can concatenate and interleave multiple of these in any order. Onc
 
 Verbatim is any sequence of text surrounded by guillemets (`«»`), a.k.a. french quotation marks. We also denote verbatim as a _french quote_, for simplicity. It can be thought of as a literal string in a traditional programming language.
 
+<!-- eslint-disable-next-line markdown/no-missing-label-refs -- https://github.com/eslint/markdown/issues/294 -->
+
 > [!NOTE]
 >
 > You can type guillemets using the `AltGr` feature of many keyboard layouts (e.g., US International). For the US layout, some operating systems provide the same functionality by means of `Ctrl+Shift` or other key combinations.

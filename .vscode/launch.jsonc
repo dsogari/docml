@@ -13,8 +13,8 @@
       "sourceMaps": true,
       "outFiles": [
         "${workspaceFolder}/packages/docml/dist/**/*.js",
-        "${workspaceFolder}/packages/language/dist/**/*.js"
-      ]
+        "${workspaceFolder}/packages/language/dist/**/*.js",
+      ],
     },
     {
       "name": "Attach to Language Server",
@@ -26,8 +26,8 @@
       "outFiles": [
         "${workspaceFolder}/packages/docml/dist/**/*.js",
         "${workspaceFolder}/packages/language/dist/**/*.js",
-        "${workspaceFolder}/node_modules/langium"
-      ]
-    }
-  ]
+        "${workspaceFolder}/node_modules/langium",
+      ],
+    },
+  ],
 }

@@ -1,6 +1,6 @@
 .vscode/*
-!.vscode/extensions.json
-!.vscode/launch.json
+!.vscode/extensions.jsonc
+!.vscode/launch.jsonc
 dist/
 generated/
 node_modules/

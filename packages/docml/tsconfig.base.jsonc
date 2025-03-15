@@ -15,6 +15,6 @@
     "verbatimModuleSyntax": false, // https://github.com/microsoft/TypeScript/issues/40344
     "allowImportingTsExtensions": false,
     "forceConsistentCasingInFileNames": true,
-    "disableSourceOfProjectReferenceRedirect": true
-  }
+    "disableSourceOfProjectReferenceRedirect": true,
+  },
 }

@@ -1,6 +1,6 @@
 {
   "name": "docml",
-  "description": "VSCode extension and command-line for Docml",
+  "description": "VSCode extension and command-line interface for Docml",
   "version": "0.1.2",
   "type": "module",
   "files": [
@@ -92,6 +92,8 @@
   },
   "homepage": "https://dsogari.github.io/docml/",
   "keywords": [
+    "command",
+    "line",
     "extension",
     "vscode"
   ],

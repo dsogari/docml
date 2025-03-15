@@ -16,18 +16,7 @@
     "vscodetextmate"
   ],
   "ignorePaths": [
-    ".git",
-    ".gitignore",
-    ".npmignore",
-    ".prettierignore",
-    ".vscodeignore",
-    "*.json",
-    "*.lock",
-    "*.svg",
-    "*.toml",
-    "*.txt",
-    "package.json",
-    "*.{js,ts}"
+    "*.{js,ts,json,jsonc,lock,svg,toml,git,gitignore,npmignore,prettierignore,vscodeignore}"
   ],
   "useGitignore": true,
   "enableGlobDot": true
